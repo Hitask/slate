@@ -1,20 +1,24 @@
-# Errors
+# Error handling
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
+You need to check HTTP status in case there's an error. Basic rule is to check that code is not 200. If it's not 200 then expanded error code and error message will be in Json data.
 
-The Kittn API uses the following error codes:
+When response statux is not 200 OK. The response contains Json date in format:
+
+```json
+{
+ "error_message" : "This is an error message";
+ "response_status" : 1;
+}
+```
+
+The  API uses the following HTTP error codes:
 
 
 Error Code | Meaning
 ---------- | -------
-400 | Bad Request -- Your request sucks
-401 | Unauthorized -- Your API key is wrong
-403 | Forbidden -- The kitten requested is hidden for administrators only
-404 | Not Found -- The specified kitten could not be found
-405 | Method Not Allowed -- You tried to access a kitten with an invalid method
-406 | Not Acceptable -- You requested a format that isn't json
-410 | Gone -- The kitten requested has been removed from our servers
-418 | I'm a teapot
-429 | Too Many Requests -- You're requesting too many kittens! Slow down!
+400 | Bad Request -- 
+401 | Unauthorized -- Your API key is wrong or unauthorized
+403 | Forbidden -- The requested is forbidden
+404 | Not Found -- The specified item could not be foun
 500 | Internal Server Error -- We had a problem with our server. Try again later.
 503 | Service Unavailable -- We're temporarially offline for maintanance. Please try again later.
