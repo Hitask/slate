@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>API Reference</title>
 
-    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -88,10 +86,12 @@
   color: #90a959;
 }
     </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;json&quot;,&quot;java&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -102,8 +102,9 @@
       <img src="images/logo.png" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="json">json</a>
+              <a href="#" data-language-name="java">java</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -112,7 +113,7 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
+            <li><a href='https://hitask.com/signup'>Sign Up for a Developer Key</a></li>
             <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -121,167 +122,1608 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p><a href="http://hitask.com">HiTask</a> is an online task and project management software. With hiTask you can share tasks and projects with your team, add multi-user comments, track time, attach files, produce reports and much more.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<ul>
+<li><strong>RESTful.</strong> API is designed in accordance with <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> patterns and is so called RESTful API.</li>
+<li><strong>JSON.</strong> Hitask support JSON for serialization of data. Response data is returned as root element.</li>
+</ul>
 
-<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
+<h2 id="api-endpoint-url">API Endpoint URL</h2>
+
+<p>API endpoint is <code class="prettyprint">https://hitask.com/api/{method}</code> where {method} is the name of API method. </p>
 
 <h1 id="authentication">Authentication</h1>
+
+<p>This API is SSL/HTTPS only.</p>
+
+<p>All methods require authentication. Authentication achieved through <a href="#user">User.authenticate</a> which returns session id.
+Your application have to provide the session id with every request. There are two ways of doing this:</p>
+
+<ul>
+<li>Cookie. If your application framework supports cookies automatically you don&rsquo;t have to do anything, cookie will be sent with every request.</li>
+<li>HTTP header parameter. Alternatively you can provide session id as &ldquo;x-hi-session&rdquo; header with every request.</li>
+</ul>
+
+<h3 id="rate-limiting">Rate limiting</h3>
+
+<p>We only allow a certain number of requests per client per minute. If you exceed this limit you will have to wait before your next request is processed.</p>
+
+<h2 id="api-key">API Key</h2>
 
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<pre class="highlight javascript"><code>
 </code></pre>
 <pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+  -H <span class="s2">"Authorization: "</span>
 </code></pre>
 
 <blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
+<p>Make sure to replace <code class="prettyprint">your_key</code> with your API key.</p>
 </blockquote>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>To access the API you need to have API Key. API Key is a unique identifier assigned to you. To get your Key simply go into your hiTask account settings page. You  will be asked to provide the name of your integration/app.
+You are required to provide your API Key as a parameter for some methods, for example API Key is required when you authenticate user session: <a href="#user">User.authenticate</a></p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+<p><code class="prettyprint">Authorization: your_key</code></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>your_key</code> with your personal API key.
 </aside>
 
-<h1 id="kittens">Kittens</h1>
+          <h1 id="user">User</h1>
 
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p>Operations related to current user&rsquo;s account: authenticate, sign up, etc.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<h2 id="authenticate">Authenticate</h2>
+<pre class="highlight javascript"><code>
+<span class="p">{</span>
+    <span class="s2">"api_key"</span> <span class="err">:</span> <span class="nx">myapikey</span><span class="p">;</span>
+    <span class="nl">login</span> <span class="p">:</span> <span class="nx">john</span><span class="p">;</span>
+    <span class="nl">password</span> <span class="p">:</span> <span class="nx">XXXXXXXXX</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Will produce the response: </p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="nl">id</span> <span class="p">:</span> <span class="mi">12345678</span><span class="p">;</span>
+    <span class="nl">level</span> <span class="p">:</span> <span class="mi">300</span><span class="p">;</span>
+    <span class="s2">"session_id"</span> <span class="err">:</span> <span class="s2">"e0f93451-5ad6-4550-b991-efb0ce1e271b"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
 
-<p>This endpoint retrieves all kittens.</p>
+<ul>
+<li><code class="prettyprint">GET /user/authenticate</code> will authenticate user using user name and password</li>
+</ul>
 
-<h3 id="http-request">HTTP Request</h3>
+<p>Input parameters:</p>
 
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
+<ul>
+<li>user name</li>
+<li>password</li>
+</ul>
 
-<h3 id="query-parameters">Query Parameters</h3>
+<p>Response values:</p>
+
+<ul>
+<li>id: unique user id used to identify this user account</li>
+<li>level: account level</li>
+<li>session_id: session token</li>
+</ul>
+
+<aside class="notice">
+You must provide <code>ApiKey</code> with the request.
+</aside>
+
+<h2 id="sign-out">Sign out</h2>
+
+<p>End current session</p>
+
+<ul>
+<li><code class="prettyprint">GET /user/logout</code> Close user&rsquo;s session.</li>
+</ul>
+
+<p>Input parameters:
+* session_id: session token</p>
+
+<h2 id="user-account-information">User Account information</h2>
+
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="nl">businessId</span> <span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="nx">businessLevel</span> <span class="err">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="nx">email</span> <span class="err">:</span> <span class="s2">"name@email.com"</span><span class="p">,</span>
+    <span class="nx">emailConfirmed</span> <span class="err">:</span> <span class="s2">"name@email.com"</span><span class="p">,</span>
+    <span class="nx">id</span> <span class="err">:</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="nx">isOnline</span> <span class="err">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">level</span> <span class="err">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">login</span> <span class="err">:</span> <span class="s2">"john"</span><span class="p">,</span>
+    <span class="nx">firstName</span> <span class="err">:</span> <span class="s2">"Mick"</span><span class="p">,</span>
+    <span class="nx">lastName</span> <span class="err">:</span> <span class="s2">"Johnson"</span><span class="p">,</span>
+    <span class="nx">pictureSource</span><span class="err">:</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="nx">pictureHash</span><span class="err">:</span> <span class="s2">"4b0c75c8-14cc-4d9b2-80aa-b49f5cf62daf"</span>
+<span class="p">}</span>
+</code></pre>
+
+<ul>
+<li><code class="prettyprint">GET /user</code>  Get current user account information</li>
+</ul>
+
+<h3 id="response-fields">Response fields:</h3>
 
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
+<th>Field</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>id</td>
+<td>long</td>
+<td>Globally unique primary identifier for a user. This is an integer, but it is recommended to handle it as String to avoid limitations with the way JavaScript integers are expressed.</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>accountType</td>
+<td>String</td>
+<td>User&rsquo;s account type: <em>TEAM_BASIC, TEAM_BUSINESS, PERSONAL_FREE, PERSONAL_PREMIUM</em></td>
+</tr>
+<tr>
+<td>login</td>
+<td>String</td>
+<td>user login id</td>
+</tr>
+<tr>
+<td>firstName</td>
+<td>String</td>
+<td>user&rsquo;s First Name</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>String</td>
+<td>user&rsquo;s Last Name</td>
+</tr>
+<tr>
+<td>emailConfirmed</td>
+<td>String</td>
+<td>Email address that was confirmed by the user. (By clicking confirmaiton link sent to this email address.)</td>
+</tr>
+<tr>
+<td>email</td>
+<td>String</td>
+<td>Email address that user entered but not confirmed.</td>
+</tr>
+<tr>
+<td>businessId</td>
+<td>Integer</td>
+<td>unique identifier of user&rsquo;s Business group account, if applicable</td>
+</tr>
+<tr>
+<td>businessLevel</td>
+<td>Integer</td>
+<td>Membership level of user in Business account</td>
+</tr>
+<tr>
+<td>pictureHash</td>
+<td>String</td>
+<td>Unique avatar identifier that should be used in order to build user avatar URL</td>
+</tr>
+<tr>
+<td>pictureSource</td>
+<td>Integer</td>
+<td>Type of user avatar: See below</td>
 </tr>
 </tbody></table>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+<h4 id="type-of-user-avatar">Type of user avatar</h4>
 
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<ul>
+<li>0 Avatar is missing (only happens if generation failed)</li>
+<li>1 Avatar is auto-generating (searching social sources or auto generating: only happens if user registered few seconds ago)</li>
+<li>2 Auto generated (initials on background)</li>
+<li>10 Google</li>
+<li>11 Facebook</li>
+<li>12 Gravatar</li>
+<li>100 User uploaded</li>
+<li>1000 Unknown</li>
+</ul>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<h2 id="update-user-account-information">Update User Account information</h2>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<ul>
+<li><code class="prettyprint">PUT /user</code>  Update current user account information</li>
+</ul>
+
+<p>Input parameters:
+* firstname: First Name
+* lastname: Last Name
+* email: e-mail address. If email address is different from previously stored, an email message with address confirmation will be sent</p>
+
+<h2 id="update-user-avatar">Update User Avatar</h2>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Example response:</p>
 </blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span><span class="s2">"hash"</span><span class="err">:</span><span class="s2">"4b0c75c8-14cc-49b2-80aa-b49f5cf62daf"</span><span class="p">}</span>
+</code></pre>
+
+<ul>
+<li><code class="prettyprint">POST /user/picture</code>  Update current user avatar</li>
+</ul>
+
+<p>Input parameters:
+* picture: Picture data
+* x: (Optional) X coordinate of top left corner of square that will be used to crop the picture (x, y and width must be specified to crop the picture)
+* y: (Optional) Y coordinate of top left corner of square that will be used to crop the picture (x, y and width must be specified to crop the picture)
+* width: (Optional) Width of square that will be used to crop the picture (x, y and width must be specified to crop the picture)</p>
+
+<p>Restrictions:
+* max picture size is 1MB
+* allowed picture formats: &ldquo;gif&rdquo;, &ldquo;jpeg&rdquo;, &ldquo;jpg&rdquo;, &ldquo;png&rdquo;</p>
+
+<p>Error codes:
+* HTTP 400 and code 32: picture upload failed, retry required
+* HTTP 400 and code 34: crop parameters are invalid
+* HTTP 400 and code 6: uploaded data is not a valid picture
+* HTTP 400 and code 5: picture format is not valid
+* HTTP 400 and code 25: picture exceeded maximum allowed size</p>
+
+<p>Response:</p>
+
+<p>JSON object with one property &ldquo;hash&rdquo;: unique picture identifier.</p>
+
+<h2 id="delete-user-avatar">Delete User Avatar</h2>
+
+<ul>
+<li><code class="prettyprint">DELETE /user/picture</code>  Delete current user avatar</li>
+</ul>
+
+<p>Input parameters:
+* returninfo: (optional) if &ldquo;true&rdquo; then full account info will be returned as described in <code class="prettyprint">GET /user</code></p>
+
+          <h1 id="team">Team</h1>
+
+<p>Team members and team properties</p>
+
+<h2 id="1-get-list-of-team-members">1. Get list of team members</h2>
+
+<ul>
+<li><code class="prettyprint">GET /team</code></li>
+</ul>
+
+<h2 id="2-invite-to-join-team-account">2. Invite to join team account</h2>
+
+<ul>
+<li><code class="prettyprint">POST     /team/member</code> </li>
+</ul>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>Valid email address. <strong>Required</strong></td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Full name. First name and last name separated by space. e.g. &ldquo;Firstname Lastname&rdquo;</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-codes">Response codes</h3>
+
+<table><thead>
+<tr>
+<th>HTTP code</th>
+<th>API Error code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>Invited,added</td>
+</tr>
+<tr>
+<td>400</td>
+<td>5</td>
+<td>bad request, email address invalid</td>
+</tr>
+<tr>
+<td>412</td>
+<td>16</td>
+<td>Already a member, (this email address is already member of Team)</td>
+</tr>
+<tr>
+<td>412</td>
+<td>79</td>
+<td>User already invited in this team</td>
+</tr>
+<tr>
+<td>400</td>
+<td>12</td>
+<td>User licenses exceeded</td>
+</tr>
+</tbody></table>
+
+<h2 id="3-remove-team-member">3. Remove team member</h2>
+
+<p>Removes team member or invited user</p>
+
+<ul>
+<li><code class="prettyprint">DELETE /team/member</code></li>
+</ul>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>member user id</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-codes">Response codes</h3>
+
+<table><thead>
+<tr>
+<th>HTTP code</th>
+<th>API Error code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>member removed</td>
+</tr>
+<tr>
+<td>404</td>
+<td>1</td>
+<td>member not found</td>
+</tr>
+<tr>
+<td>400</td>
+<td>4</td>
+<td>&ldquo;id&rdquo; parameter is mandatory</td>
+</tr>
+</tbody></table>
+
+<h2 id="4-resend-invitation">4. Resend invitation</h2>
+
+<p>In case user did not receive email invitation use this method to re-send invitation again</p>
+
+<ul>
+<li><code class="prettyprint">POST /team/member/resend</code></li>
+</ul>
+
+<h3 id="parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>Valid email address. <strong>Required</strong></td>
+</tr>
+</tbody></table>
+
+<h3 id="response-codes">Response codes</h3>
+
+<table><thead>
+<tr>
+<th>HTTP code</th>
+<th>API Error code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>Invited,added</td>
+</tr>
+<tr>
+<td>400</td>
+<td>5</td>
+<td>bad request, email address invalid</td>
+</tr>
+<tr>
+<td>412</td>
+<td>16</td>
+<td>Already a member, (this email address is already member of Team)</td>
+</tr>
+<tr>
+<td>400</td>
+<td>12</td>
+<td>User licenses exceeded</td>
+</tr>
+</tbody></table>
+
+          <h1 id="item">Item</h1>
+
+<p>Operations with items: tasks, events, projects, notes, files.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>long</td>
+<td>123000</td>
+<td>Globally unique item Identifier</td>
+</tr>
+<tr>
+<td>guid</td>
+<td>String (UDID)</td>
+<td>123456abcdef</td>
+<td>Globally unique item Identifier used for public sharing</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>long</td>
+<td>123000</td>
+<td>user id of owner, user who created this item</td>
+</tr>
+<tr>
+<td>title</td>
+<td>String (512)</td>
+<td>My Task</td>
+<td>title</td>
+</tr>
+<tr>
+<td>completed</td>
+<td>int</td>
+<td>0</td>
+<td>Indication if this item is completed</td>
+</tr>
+<tr>
+<td>color</td>
+<td>int</td>
+<td>0</td>
+<td>Color tag (index of predefined colors) used for items (tasks, events, notes, ..). Onde of these colors: [no color, &rsquo;#FB7E6E&rsquo;, &rsquo;#F8B957&rsquo;, &rsquo;#F3DF5B&rsquo;, &rsquo;#C2D95B&rsquo;, &rsquo;#6CB4FF&rsquo;, &rsquo;#CAA4DF&rsquo;, &rsquo;#B8B8B8&rsquo;]</td>
+</tr>
+<tr>
+<td>color_value</td>
+<td>Strng</td>
+<td>#5e93c3</td>
+<td>Color value used for projects. Default: #5e93c3<br/>One of these colors: [&rsquo;#5e93c3&rsquo;, &rsquo;#fc2f6a&rsquo;, &rsquo;#fd9426&rsquo;, &rsquo;#fecb2e&rsquo;, &rsquo;#55ce2e&rsquo;, &rsquo;#cb77df&rsquo;, &rsquo;#a18460&rsquo;]</td>
+</tr>
+<tr>
+<td>category</td>
+<td>int</td>
+<td>1</td>
+<td>Category (or type) of item: 0:project 1: task 2:event 4: note 5:file</td>
+</tr>
+<tr>
+<td>message</td>
+<td>String (5000)</td>
+<td>Hello</td>
+<td>Item description text</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>long</td>
+<td>0</td>
+<td>Unique id of parent item. Default: 0. 0 means item is not child of another item and not inside of project</td>
+</tr>
+<tr>
+<td>recurring</td>
+<td>int</td>
+<td>0</td>
+<td>0: not recurring, 1: daily, 2: weekly, 3: monthly, 4: yearly</td>
+</tr>
+<tr>
+<td>assigneeId</td>
+<td>long</td>
+<td>0</td>
+<td>Assignee, primary responsible person. User id of user whom item is assigned to</td>
+</tr>
+<tr>
+<td>participants</td>
+<td>comma separated list of user identifiers</td>
+<td>322,413</td>
+<td>array of user id for this item participants</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>Date</td>
+<td>2012-03-15T19:00:00.000+10:00</td>
+<td>Start date and time for this item. Default:null.</td>
+</tr>
+<tr>
+<td>is_all_day</td>
+<td>int</td>
+<td>0</td>
+<td>Indicator that this item is &ldquo;all day&rdquo; event. Only date without time should be used from start/end date field..</td>
+</tr>
+<tr>
+<td>alerts</td>
+<td>JSON array</td>
+<td>See &ldquo;Alerts&rdquo; below</td>
+<td></td>
+</tr>
+<tr>
+<td>shared</td>
+<td>int</td>
+<td>0</td>
+<td>0: Item is private. 1: item is shared, visile to team memebrs (Business account feature)</td>
+</tr>
+<tr>
+<td>time_last_update</td>
+<td>Date</td>
+<td>2012-03-15T19:00:00.000+10:00</td>
+<td>Timestamp when this item was last changed (updated).</td>
+</tr>
+<tr>
+<td>time_create</td>
+<td>Date</td>
+<td>2012-03-15T19:00:00.000+10:00</td>
+<td>Timestamp when this item was created.</td>
+</tr>
+<tr>
+<td>starred</td>
+<td>int</td>
+<td>0</td>
+<td>If item is marked as starred, 1 or 0</td>
+</tr>
+<tr>
+<td>time_track</td>
+<td>int</td>
+<td>0</td>
+<td>1/0 flag to specify if time tracking is enabled for htis item. Default:0.</td>
+</tr>
+<tr>
+<td>time_est</td>
+<td>float</td>
+<td>0</td>
+<td>Time estimated for this item, in hours. Used in time tracking calculations.Optional.</td>
+</tr>
+<tr>
+<td>time_spent</td>
+<td>float</td>
+<td>0</td>
+<td>Total time spent recorded for this item.</td>
+</tr>
+<tr>
+<td>priority</td>
+<td>int</td>
+<td>20000</td>
+<td>Arbitrary priority. 10000-19999:low, 20000-29999:normal, 30000:high. Default: 20000 (normal)</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>comma separated list of tags</td>
+<td>&ldquo;work&rdquo;,&ldquo;home&rdquo;</td>
+<td>array or tags added to item</td>
+</tr>
+<tr>
+<td>instances</td>
+<td>array[item_instance]</td>
+<td>[]</td>
+<td>array of instances for recurring item. at PUT/POST requests this field is ignored by the server.</td>
+</tr>
+<tr>
+<td>location</td>
+<td>object</td>
+<td><code class="prettyprint">{&quot;longitude&quot;:123.1234567,&quot;latitude&quot;:-4.0987654321,&quot;address&quot;:&quot;qwe&quot;}</code></td>
+<td>Map that contains long/lat coordinates and address</td>
+</tr>
+<tr>
+<td>unread</td>
+<td>number or null</td>
+<td>0</td>
+<td>Item is &ldquo;unread&rdquo; for this user. It was created or modified by someone else</td>
+</tr>
+<tr>
+<td>permissions</td>
+<td>JSON array</td>
+<td>See &ldquo;Permissions&rdquo; below</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h3 id="alerts-structure">Alerts structure</h3>
+<pre class="highlight javascript"><code>    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="err">:</span><span class="mi">900</span><span class="p">,</span> <span class="c1">// optional: if id is not specified then new alert will be created, or existing updated otherwise</span>
+        <span class="s2">"timeType"</span><span class="err">:</span><span class="mi">4</span><span class="p">,</span> <span class="c1">// mandatory; possible values: 1 - specified time, 2 - days before, 3 - hours before, 4 - minutes before</span>
+        <span class="s2">"time"</span><span class="err">:</span><span class="mi">0</span><span class="p">,</span> <span class="c1">// mandatory if timeType in [2, 3, 4]</span>
+        <span class="s2">"timeSpecified"</span><span class="err">:</span><span class="kc">null</span><span class="p">,</span> <span class="c1">// mandatory if timeType=1, format is same as for start_date and end_date of item object</span>
+        <span class="s2">"repeat"</span><span class="err">:</span><span class="mi">0</span><span class="p">,</span> <span class="c1">// optional: how many times reminder should be repeated</span>
+        <span class="s2">"repeatInterval"</span><span class="err">:</span><span class="mi">0</span><span class="p">,</span> <span class="c1">// optional: repeat interval in minutes</span>
+        <span class="s2">"sound"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span> <span class="c1">// optional: play sound</span>
+        <span class="s2">"alert"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span> <span class="c1">// optional: display notification in desktop/browser version of application</span>
+        <span class="s2">"email"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span> <span class="c1">// optional: send email</span>
+        <span class="s2">"push"</span><span class="err">:</span><span class="kc">true</span> <span class="c1">// optional: send push notification to mobile device</span>
+    <span class="p">}</span>
+</code></pre>
+
+<p>To Create/Update/Delete reminders:</p>
+<pre class="highlight javascript"><code><span class="p">[</span>
+    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s2">"time"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"timeSpecified"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"repeat"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"repeatInterval"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"sound"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"alert"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"push"</span><span class="p">:</span><span class="kc">true</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s2">"time"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="s2">"timeSpecified"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"repeat"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"repeatInterval"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"sound"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"alert"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"push"</span><span class="p">:</span><span class="kc">true</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s2">"time"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"timeSpecified"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"repeat"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"repeatInterval"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"sound"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"alert"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"push"</span><span class="p">:</span><span class="kc">true</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"time"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"timeSpecified"</span><span class="p">:</span><span class="s2">"2016-08-31T11:00:00.000+04:00"</span><span class="p">,</span>
+    <span class="s2">"repeat"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"repeatInterval"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"sound"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"alert"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"push"</span><span class="p">:</span><span class="kc">true</span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre>
+
+<ul>
+<li>Create: simply add new alert to array and put data to server</li>
+<li>Update: simply update existing alert in array (id must be specified in alert object) and put data to server</li>
+<li>Delete: simply remove alert from array and put data to server</li>
+</ul>
+
+<p>Alert object description:</p>
+
+<h3 id="permissions">Permissions</h3>
+
+<p>Permission is defined by a level integer value.</p>
+
+<table><thead>
+<tr>
+<th>Level</th>
+<th>Description</th>
+<th>Title displayed in client</th>
+<th>Sub-title (description) displayed in client app</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0/none</td>
+<td>Not visible to user. Server does not return this item in user&rsquo;s items</td>
+<td><em>Not visible</em></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>User can see item in list. Item sub-items and file attachments. Item history.</td>
+<td>View</td>
+<td></td>
+</tr>
+<tr>
+<td>20</td>
+<td>User can add comments to item</td>
+<td><em>View and Comment</em></td>
+<td>See in their lists, View details, Add comments</td>
+</tr>
+<tr>
+<td>30</td>
+<td>User can add attachments. Can add sub-items, If project- can create new items in project</td>
+<td><em>Add sub-tasks and attachments</em> , &ldquo;Create tasks in project&rdquo;</td>
+<td></td>
+</tr>
+<tr>
+<td>40</td>
+<td>User can assign/reassign</td>
+<td>&ldquo;Assign&rdquo;</td>
+<td></td>
+</tr>
+<tr>
+<td>50</td>
+<td>User can Complete, Log time. Transition to another status (future)</td>
+<td><em>Complete and Assign</em></td>
+<td>Complete, reassign to another Team member, Attach documents, Add sub-tasks, Log time.</td>
+</tr>
+<tr>
+<td>60</td>
+<td>User can modify all properties (except Sharing permissions)</td>
+<td><em>Modify</em></td>
+<td>Modify item except its Sharing permissions</td>
+</tr>
+<tr>
+<td>70</td>
+<td>Can change sharing permissions (can add level 70 but not remove)</td>
+<td>&ldquo;Share with others&rdquo;</td>
+<td></td>
+</tr>
+<tr>
+<td>80</td>
+<td>User can archive item</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>100</td>
+<td>User can delete item</td>
+<td><em>Everything</em></td>
+<td>Modify, Change sharing, Delete, Archive</td>
+</tr>
+</tbody></table>
+
+<h3 id="unread-value">Unread value</h3>
+
+<table><thead>
+<tr>
+<th>Unread</th>
+<th>What it means</th>
+<th>Relationship to item</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0 or null</td>
+<td>Item is read (default)</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>Comment added</td>
+<td>User is participant or assignee or creator. Comment added by someone else</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Modified, sub-item added</td>
+<td>Assignee, participant, creator</td>
+</tr>
+<tr>
+<td>3</td>
+<td>New item</td>
+<td>Assignee, participant, creator</td>
+</tr>
+</tbody></table>
+
+<h2 id="1-get-array-of-items">1. Get array of items</h2>
+
+<ul>
+<li><code class="prettyprint">GET    /item</code> </li>
+</ul>
+
+<p>This method will return array of all items: tasks, events, files including projects</p>
+<pre class="highlight javascript"><code><span class="c1">//TODO: example</span>
+</code></pre>
+
+<h3 id="1-2-get-delta-update-of-items">1.2 Get delta update of items</h3>
+
+<ul>
+<li><code class="prettyprint">GET      /item/since/{timestamp}</code></li>
+</ul>
+
+<p>Returns list of items that were changed or added since specified date</p>
+
+<h2 id="2-create-item">2. Create Item</h2>
+
+<ul>
+<li><code class="prettyprint">POST    /item</code> will create new item</li>
+</ul>
+
+<h2 id="3-update-item">3. Update Item</h2>
+
+<ul>
+<li><code class="prettyprint">PUT    /item</code> will update (modify) item</li>
+</ul>
+
+<h3 id="response-codes-for-create-and-update">Response codes for Create and Update</h3>
+
+<table><thead>
+<tr>
+<th>HTTP code</th>
+<th>API Error code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>Created/updated</td>
+</tr>
+<tr>
+<td>400</td>
+<td>73</td>
+<td>Unable to add {principal X} because project/parent item is not shared with {principal X}.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>74</td>
+<td>{principal X} permission can not be {modified/added/removed} because it will conflict with parent {permission X} permissions.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>75</td>
+<td>{user X} can not be {assignee/participant} because they don&rsquo;t have access to project {project name}.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>76</td>
+<td>Owner {owner name} is not allowed to change own permission.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>77</td>
+<td>Permission {principal X} downgrade to {permission X} is not allowed because parent has {permission Y} for this principal.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>78</td>
+<td>Cannot remove {assignee/participant} {user name} permission.</td>
+</tr>
+</tbody></table>
+
+<h2 id="4-delete">4. Delete</h2>
+
+<ul>
+<li><code class="prettyprint">DELETE    /item/{id}</code> will delete item</li>
+</ul>
+
+<p>Parameters:
+* {id}: unique id of item.</p>
+
+<p>User performing delete request must have sufficient rights to delete this object</p>
+
+<p>Possible HTTP return responses:</p>
+
+<ul>
+<li>200 operation successful</li>
+<li>404 item not found. It may be already deleted or not visible to current user.</li>
+<li>403 not authorised</li>
+</ul>
+
+<h2 id="5-history">5. History</h2>
+
+<h3 id="5-1-retrieve-item-history-including-comments">5.1 Retrieve item history including comments:</h3>
+
+<ul>
+<li><code class="prettyprint">GET    /item/history?id={item id}</code> </li>
+</ul>
+
+<h3 id="5-2-add-comment">5.2 Add comment</h3>
+
+<ul>
+<li><code class="prettyprint">POST    /item/comment</code> will add a new comment to the item</li>
+</ul>
+
+<p>Parameters: id: item id, message: comment body text</p>
+
+<h3 id="5-3-delete-comment">5.3 Delete comment</h3>
+
+<ul>
+<li><code class="prettyprint">DELETE    /item/comment</code> will delete comment</li>
+</ul>
+
+<h2 id="6-archive">6. Archive</h2>
+
+<h3 id="6-1-archive-item">6.1 Archive item</h3>
+
+<p>Moves item to Archive</p>
+
+<ul>
+<li><code class="prettyprint">POST    /item/archive</code> will archive item</li>
+</ul>
+
+<p>Parameters:
+* id or guid: id or guid of item to archive.</p>
+
+<p>User performing request must have sufficient rights to archive specified item.</p>
+
+<p>Possible HTTP return responses:</p>
+
+<ul>
+<li>200 operation successful</li>
+<li>403 not authorised</li>
+<li>404 item not found; it may be already archived or not visible to current user</li>
+</ul>
+
+<h3 id="6-2-restore-item-from-archive">6.2. Restore item from archive</h3>
+
+<ul>
+<li><code class="prettyprint">GET    /archive/restore</code> will restore item from archive</li>
+</ul>
+
+<p>Parameters:
+* id or guid: id or guid of item to restore.</p>
+
+<p>User performing request must have sufficient rights to restore specified item.</p>
+
+<p>Possible HTTP return responses:</p>
+
+<ul>
+<li>200 operation successful</li>
+<li>403 not authorised</li>
+<li>404 item not found</li>
+<li>507 limit of items exceeded for current account</li>
+</ul>
+
+<h3 id="6-3-restore-copy-of-item-from-archive">6.3. Restore copy of item from archive</h3>
+
+<ul>
+<li><code class="prettyprint">GET    /archive/restorecopy</code> will restore copy of item from archive</li>
+</ul>
+
+<p>Parameters:
+* id or guid: id or guid of item which copy to restore.</p>
+
+<p>User performing request must have sufficient rights to restore specified item.</p>
+
+<p>Possible HTTP return responses:</p>
+
+<ul>
+<li>200 operation successful</li>
+<li>403 not authorised</li>
+<li>404 item not found</li>
+<li>507 limit of items exceeded for current account</li>
+</ul>
+
+<h2 id="7-multiple-items-operations">7. Multiple items operations</h2>
+
+<h3 id="7-1-delete-multiple-items">7.1 Delete multiple items</h3>
+
+<ul>
+<li><code class="prettyprint">POST    /item/deletemultiple</code> will delete items</li>
+</ul>
+
+<p>Parameters:
+* id: comma separated list of item identifiers (example: id=1,2,3).</p>
+
+<p>User performing request must have sufficient rights to delete specified items.
+No error will be rised and item delete request simply ignored if user does not have rights to delete specific item.</p>
+
+<p>Possible HTTP return responses:</p>
+
+<ul>
+<li>200 operation successful</li>
+<li>400 invalid format of list of identifiers</li>
+</ul>
+
+<h3 id="7-2-archive-multiple-items">7.2 Archive multiple items</h3>
+
+<ul>
+<li><code class="prettyprint">POST    /item/archivemultiple</code> will archive multiple items</li>
+</ul>
+
+<p>Parameters:
+* id: comma separated list of item identifiers (example: id=1,2,3).</p>
+
+<p>User performing request must have sufficient rights to archive specified items.
+No error will be rised and item archive request simply ignored if user does not have rights to archive specific item.</p>
+
+<p>Possible HTTP return responses:</p>
+
+<ul>
+<li>200 operation successful</li>
+<li>400 invalid format of list of identifiers</li>
+</ul>
+
+          <h1 id="tag">Tag</h1>
+
+<p>Operations with tags: add, remove, list tags</p>
+
+<h2 id="1-get-list-of-tags">1. Get list of tags</h2>
+
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">[{</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"privatetag"</span><span class="p">,</span><span class="s2">"shared"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">388730</span><span class="p">},{</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"tag"</span><span class="p">,</span><span class="s2">"shared"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">388728</span><span class="p">},{</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"тег"</span><span class="p">,</span><span class="s2">"shared"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">388729</span><span class="p">}]</span>
+</code></pre>
+
+<ul>
+<li><code class="prettyprint">GET  /tag</code> will return list of tags</li>
+</ul>
+
+<h3 id="mandatory-params">Mandatory params:</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>session_id</code></td>
+<td>text</td>
+<td>User session.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-fields">Response fields:</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>long</td>
+<td>Globally unique primary identifier for a tag.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>text</td>
+<td>Name of the tag.</td>
+</tr>
+<tr>
+<td><code>shared</shared></td>
+<td>boolean</td>
+<td>Indicates if tag linked to shared item or private item for current user.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-codes">Response codes</h3>
+
+<table><thead>
+<tr>
+<th>HTTP code</th>
+<th>API Error code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>Returns array of tags.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>4</td>
+<td>API session is required.</td>
+</tr>
+</tbody></table>
+
+<h2 id="2-add-tag">2. Add tag</h2>
+
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span><span class="s2">"name"</span><span class="err">:</span><span class="s2">"new tag from api"</span><span class="p">,</span><span class="s2">"shared"</span><span class="err">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">"id"</span><span class="err">:</span><span class="mi">388731</span><span class="p">}</span>
+</code></pre>
+
+<ul>
+<li><code class="prettyprint">POST /tag</code></li>
+</ul>
+
+<h3 id="mandatory-params">Mandatory params:</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>session_id</code></td>
+<td>text</td>
+<td>User session.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>text</td>
+<td>Name of the new tag.</td>
+</tr>
+<tr>
+<td><code>item_id</code></td>
+<td>long</td>
+<td>Identifer of item.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-fields">Response fields:</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>long</td>
+<td>Globally unique primary identifier for a tag.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>text</td>
+<td>Name of the tag.</td>
+</tr>
+<tr>
+<td><code>shared</shared></td>
+<td>boolean</td>
+<td>Indicates if tag linked to shared item or private item for current user.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-codes">Response codes</h3>
+
+<table><thead>
+<tr>
+<th>HTTP code</th>
+<th>API Error code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>Returns created tag.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>4</td>
+<td>Tag name is required.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>4</td>
+<td>Item ID is required.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>1</td>
+<td>Item not found.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>3</td>
+<td>No enough permissions to modify item.</td>
+</tr>
+</tbody></table>
+
+<h2 id="3-update-tag">3. Update tag</h2>
+
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span><span class="s2">"name"</span><span class="err">:</span><span class="s2">"update tag from api"</span><span class="p">,</span><span class="s2">"shared"</span><span class="err">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">"id"</span><span class="err">:</span><span class="mi">388731</span><span class="p">}</span>
+</code></pre>
+
+<ul>
+<li><code class="prettyprint">PUT    /tag/{id}</code></li>
+</ul>
+
+<h3 id="mandatory-params">Mandatory params:</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>session_id</code></td>
+<td>text</td>
+<td>User session.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>text</td>
+<td>New name of the tag.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td>long</td>
+<td>Identifer of tag (param is part of the URL).</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-fields">Response fields:</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>long</td>
+<td>Globally unique primary identifier for a tag.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>text</td>
+<td>Name of the tag.</td>
+</tr>
+<tr>
+<td><code>shared</shared></td>
+<td>boolean</td>
+<td>Indicates if tag linked to shared item or private item for current user.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-codes">Response codes</h3>
+
+<table><thead>
+<tr>
+<th>HTTP code</th>
+<th>API Error code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>Returns updated tag.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>4</td>
+<td>Tag name is required.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>1</td>
+<td>Tag not found.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>3</td>
+<td>No enough permissions to modify tag because no enough permissions to modify respective item.</td>
+</tr>
+</tbody></table>
+
+<h2 id="4-delete">4. Delete</h2>
+
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span><span class="s2">"response_status"</span><span class="err">:</span><span class="mi">0</span><span class="p">}</span>
+</code></pre>
+
+<ul>
+<li><code class="prettyprint">DELETE   /tag/{id}</code> </li>
+</ul>
+
+<h3 id="mandatory-params">Mandatory params:</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>long</td>
+<td>Identifer of tag (param is part of the URL).</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-codes">Response codes</h3>
+
+<table><thead>
+<tr>
+<th>HTTP code</th>
+<th>API Error code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>Tag deleted.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>1</td>
+<td>Tag not found.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>3</td>
+<td>No enough permissions to delete shared tag.</td>
+</tr>
+</tbody></table>
+
+          <h1 id="groups">Groups</h1>
+
+<p>Operations with user groups. Organize team and contacts into groups.</p>
+
+<h2 id="get-list-of-groups">Get list of groups</h2>
+
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">[</span>
+<span class="p">{</span>
+<span class="na">id</span><span class="p">:</span> <span class="s2">"q9xsalg4tc7hrbaddh56fxg1ekuqrci39g8i2y7krmwa2qny8s5"</span><span class="p">,</span>
+<span class="na">name</span><span class="p">:</span> <span class="s2">"Everyone"</span><span class="p">,</span>
+<span class="na">code</span><span class="p">:</span> <span class="s2">"EVERYONE"</span><span class="p">,</span>
+<span class="na">color</span><span class="p">:</span> <span class="s2">"#FFFFFF"</span><span class="p">,</span>
+<span class="na">members</span><span class="p">:</span> <span class="p">[</span>
+<span class="mi">1866247</span><span class="p">,</span>
+<span class="mi">1861630</span><span class="p">,</span>
+<span class="mi">1866033</span><span class="p">,</span>
+<span class="mi">1286619</span>
+<span class="p">],</span>
+<span class="na">type</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+<span class="p">]</span>
+</code></pre>
+
+<ul>
+<li><code class="prettyprint">GET  /group</code> will return list of user&rsquo;s groups and contacts</li>
+</ul>
+
+<h3 id="response-fields">Response fields:</h3>
+
+<table>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>id</code></td>
+        <td>long</td>
+        <td>Globally unique primary identifier </td>
+    </tr>
+     <tr>
+        <td><code>name</code></td>
+        <td>String</td>
+        <td>Group name</td>
+    </tr>
+     <tr>
+        <td><code>type</code></td>
+        <td>int</td>
+        <td>Group special type. If =1 then this is &ldquo;Everyone&rdquo; group containing all team members.</td>
+    </tr>
+</table>
+
+<h2 id="add-group">Add Group</h2>
+
+<ul>
+<li><code class="prettyprint">POST /group</code></li>
+</ul>
+
+<p>Only user level Administrator can create group</p>
+
+<p>parameters: </p>
+
+<ul>
+<li>name: group name</li>
+</ul>
+
+<h2 id="update-group">Update group</h2>
+
+<ul>
+<li><code class="prettyprint">PUT /group</code></li>
+</ul>
+
+<p>Update group. Only user level Administrator can update group</p>
+
+<p>parameters: </p>
+
+<ul>
+<li>id</li>
+<li>name: group name</li>
+<li>code</li>
+<li>color</li>
+</ul>
+
+<h2 id="delete-group">Delete Group</h2>
+
+<ul>
+<li><code class="prettyprint">DELETE /group</code></li>
+</ul>
+
+<p>Only user level Administrator can create group.
+This <em>does not delete contacts</em>. only group is deleted.</p>
+
+<p>parameter:</p>
+
+<ul>
+<li>group id</li>
+</ul>
+
+<h2 id="add-contact-to-group">Add Contact to Group</h2>
+
+<ul>
+<li><code class="prettyprint">POST /group/{groupId}/contact{id}</code></li>
+</ul>
+
+<p>Add contact to the group</p>
+
+<p>Only user level Administrator can add contact to the group</p>
+
+<h2 id="remove-contact-from-a-group">Remove Contact from a Group</h2>
+
+<ul>
+<li><code class="prettyprint">DELETE /group/{groupId}/contact{id}</code></li>
+</ul>
+
+<p>Remove contact form the group</p>
+
+<p>Only user level Administrator can add remove contact form the group.</p>
+
+          <h1 id="contact">Contact</h1>
+
+<p>Operations with user&rsquo;s contacts: add, remove, list contacts</p>
+
+<h2 id="get-list-of-user-39-s-contacts">Get list of user&rsquo;s contacts</h2>
+
+<ul>
+<li><code class="prettyprint">GET  /contact</code> will return list of user&rsquo;s contacts</li>
+</ul>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+    <tr>
+        <th>Parameter</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>includeSelf</code></td>
+        <td>1 or 0</td>
+        <td>Include current user.</td>
+    </tr>
+</table>
+
+<h3 id="example-response">Example response</h3>
+<pre class="highlight javascript"><code><span class="p">{</span>
+<span class="nl">email</span><span class="p">:</span> <span class="s2">"user@email.com"</span>
+<span class="nl">emailConfirmed</span><span class="p">:</span> <span class="s2">"user@email.com"</span>
+<span class="nl">firstName</span><span class="p">:</span> <span class="s2">"John"</span>
+<span class="nl">id</span><span class="p">:</span> <span class="mi">123</span>
+<span class="nl">isOnline</span><span class="p">:</span> <span class="kc">false</span>
+<span class="nl">lastName</span><span class="p">:</span> <span class="s2">"Jackson"</span>
+<span class="nl">level</span><span class="p">:</span> <span class="mi">100</span>
+<span class="nl">login</span><span class="p">:</span> <span class="s2">"john"</span>
+<span class="nl">pictureHash</span><span class="p">:</span> <span class="s2">"267744510460b6ec63453483f725252"</span>
+<span class="nl">subscription</span><span class="p">:</span> <span class="s2">"BOTH"</span>
+<span class="p">}</span>
+</code></pre>
+
+<h3 id="response-fields">Response fields:</h3>
+
+<table>
+    <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>id</code></td>
+        <td>long</td>
+        <td>Globally unique primary identifier for a contact.</td>
+    </tr>
+    <tr>
+        <td><code>accountType</code></td>
+        <td>String</td>
+        <td>User&rsquo;s account type: <code>TEAM_BASIC, TEAM_BUSINESS, PERSONAL_FREE, PERSONAL_PREMIUM</code></td>
+    </tr> 
+    <tr>
+        <td><code>login</code></td>
+        <td>String</td>
+        <td>user login id</td>
+    </tr>
+    <tr>
+        <td><code>firstName</code></td>
+        <td>String</td>
+        <td>user&rsquo;s First Name</td>
+    </tr>
+    <tr>
+        <td><code>lastName</code></td>
+        <td>String</td>
+        <td>user&rsquo;s Last Name</td>
+    </tr>
+    <tr>
+        <td><code>emailConfirmed</code></td>
+        <td>String</td>
+        <td>Email address that was confirmed by the user. (By clicking confirmaiton link sent to this email address.)</td>
+    </tr>
+    <tr>
+        <td><code>email</code></td>
+        <td>String</td>
+        <td>Email address that user entered but not confirmed. Do not send emails to this address as it may not be confirmed.</td>
+    </tr>
+    <tr>
+        <td><code>pictureHash</code></td>
+        <td>String</td>
+        <td>Unique address of user&rsquo;s avatar picture. <br/>To display the picture following URL composition should be used:<br/>
+        [http|https]://htiask.com/avatar/[pictureHash].[pixel size].gif
+        <br/>where pixel size is one of 16,40,64,80
+</td>
+    </tr>
+    <tr>
+        <td><code>subscription</code></td>
+        <td>String</td>
+        <td>Designates if contact request is sent or receved or if relationship is established.<br/>
+      Can be one of: FROM, TO, BOTH.<br/>BOTH means contact relationship is established.
+FROM means request from this contact is received. TO means request was sent and we&rsquo;re waiting for user to accept.
+SELF means this is the current user.
+</td>
+    </tr>
+</table>
+
+<h2 id="add-contact">Add contact</h2>
+
+<ul>
+<li><code class="prettyprint">POST /contact</code></li>
+</ul>
+
+<h2 id="delete">Delete</h2>
+
+<ul>
+<li><code class="prettyprint">DELETE   /contact</code> </li>
+</ul>
+
+<h2 id="search">Search</h2>
+
+<ul>
+<li><code class="prettyprint">GET      /contact/search</code> find contact by name or email</li>
+</ul>
+
+<h2 id="invite">Invite</h2>
+
+<ul>
+<li><code class="prettyprint">GET     /contact/invite</code> Invite contact to create an account</li>
+</ul>
+
+<h2 id="approve-invitation">Approve invitation</h2>
+
+<ul>
+<li><code class="prettyprint">GET     /contact/approve</code> Approve invitation/connection</li>
+</ul>
+
+<h2 id="add-contact-to-business-account">Add contact to Business account</h2>
+
+<ul>
+<li><code class="prettyprint">GET      /contact/addtobusiness</code> will add contact as member of Business account</li>
+</ul>
+
+<h2 id="remove-contact-from-business-account">Remove contact from Business account</h2>
+
+<ul>
+<li><code class="prettyprint">GET      /contact/removefrombusiness</code> will add contact as member of Business account</li>
+</ul>
+
+          <h1 id="error-handling">Error handling</h1>
+
+<p>You need to check HTTP status in case there&rsquo;s an error. Basic rule is to check that code is not 200. If it&rsquo;s not 200 then expanded error code and error message will be in Json data.</p>
+
+<p>When response statux is not 200 OK. The response contains Json date in format:</p>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+ </span><span class="nt">"error_message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an error message"</span><span class="err">;</span><span class="w">
+ </span><span class="s2">"response_status"</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="mi">1</span><span class="err">;</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-
-<h3 id="url-parameters">URL Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-
-          <h1 id="errors">Errors</h1>
-
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<p>The  API uses the following HTTP error codes:</p>
 
 <table><thead>
 <tr>
@@ -291,39 +1733,19 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>Bad Request &ndash;</td>
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
+<td>Unauthorized &ndash; Your API key is wrong or unauthorized</td>
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>Forbidden &ndash; The requested is forbidden</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+<td>Not Found &ndash; The specified item could not be foun</td>
 </tr>
 <tr>
 <td>500</td>
@@ -339,8 +1761,9 @@ Remember — a happy kitten is an authenticated kitten!
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="json">json</a>
+                <a href="#" data-language-name="java">java</a>
           </div>
       </div>
     </div>
