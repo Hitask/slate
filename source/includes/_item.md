@@ -55,6 +55,21 @@ Operations with items: tasks, events, projects, notes, files.
     }
 ```
 
+|Field        |Type         |Example         |Description|
+|-------------|-------------|----------------|-----------|
+|id | | 900 | optional: if id is not specified then new alert will be created, or existing updated otherwise |
+|timeType| int | 4 |  mandatory; possible values: 1 - specified time, 2 - days before, 3 - hours before, 4 - minutes before |
+|time | int |  | mandatory if timeType in [2, 3, 4] |
+|timeSpecified | | null|  mandatory if timeType=1, format is same as for start_date and end_date of item object |
+|repeat | | 0 | optional: how many times reminder should be repeated |
+|repeatInterval | | 0| optional: repeat interval in minutes |
+|sound | bool | true |  optional: play sound |
+|alert | bool | true | optional: display notification in desktop/browser version of application |
+|email | bool | true | optional: send email |
+|push | bool | true |optional: send push notification to mobile device |
+        
+
+
 To Create/Update/Delete reminders:
 
 ```javascript

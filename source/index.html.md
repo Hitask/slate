@@ -2,8 +2,8 @@
 title: API Reference
 
 language_tabs:
-  - shell
   - javascript
+  - shell
   - json
   - java
 
