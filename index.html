@@ -603,6 +603,18 @@ You must provide <code>ApiKey</code> with the request.
 <td>title</td>
 </tr>
 <tr>
+<td>short_name</td>
+<td>String (8)</td>
+<td>APIDOCS</td>
+<td>Short name of project. Accepted by projects only. Restrictions: 8 characters length maximum, latin letters and digits.</td>
+</tr>
+<tr>
+<td>issue_id</td>
+<td>String</td>
+<td>APIDOCS-17</td>
+<td>Unique reference identifier for tasks and projects.</td>
+</tr>
+<tr>
 <td>completed</td>
 <td>int</td>
 <td>0</td>
@@ -670,7 +682,7 @@ You must provide <code>ApiKey</code> with the request.
 </tr>
 <tr>
 <td>alerts</td>
-<td>JSON array</td>
+<td>JSON array of JSON objects</td>
 <td>See &ldquo;Alerts&rdquo; below</td>
 <td></td>
 </tr>
@@ -756,16 +768,16 @@ You must provide <code>ApiKey</code> with the request.
 
 <h3 id="alerts-structure">Alerts structure</h3>
 <pre class="highlight javascript"><code>    <span class="p">{</span>
-        <span class="s2">"id"</span><span class="err">:</span><span class="mi">900</span><span class="p">,</span> <span class="c1">// optional: if id is not specified then new alert will be created, or existing updated otherwise</span>
-        <span class="s2">"timeType"</span><span class="err">:</span><span class="mi">4</span><span class="p">,</span> <span class="c1">// mandatory; possible values: 1 - specified time, 2 - days before, 3 - hours before, 4 - minutes before</span>
-        <span class="s2">"time"</span><span class="err">:</span><span class="mi">0</span><span class="p">,</span> <span class="c1">// mandatory if timeType in [2, 3, 4]</span>
-        <span class="s2">"timeSpecified"</span><span class="err">:</span><span class="kc">null</span><span class="p">,</span> <span class="c1">// mandatory if timeType=1, format is same as for start_date and end_date of item object</span>
-        <span class="s2">"repeat"</span><span class="err">:</span><span class="mi">0</span><span class="p">,</span> <span class="c1">// optional: how many times reminder should be repeated</span>
-        <span class="s2">"repeatInterval"</span><span class="err">:</span><span class="mi">0</span><span class="p">,</span> <span class="c1">// optional: repeat interval in minutes</span>
-        <span class="s2">"sound"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span> <span class="c1">// optional: play sound</span>
-        <span class="s2">"alert"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span> <span class="c1">// optional: display notification in desktop/browser version of application</span>
-        <span class="s2">"email"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span> <span class="c1">// optional: send email</span>
-        <span class="s2">"push"</span><span class="err">:</span><span class="kc">true</span> <span class="c1">// optional: send push notification to mobile device</span>
+        <span class="s2">"id"</span><span class="err">:</span><span class="mi">900</span><span class="p">,</span>
+        <span class="s2">"timeType"</span><span class="err">:</span><span class="mi">4</span><span class="p">,</span>
+        <span class="s2">"time"</span><span class="err">:</span><span class="mi">5</span><span class="p">,</span>
+        <span class="s2">"timeSpecified"</span><span class="err">:</span><span class="s2">"2016-08-31T11:00:00.000+04:00"</span><span class="p">,</span>
+        <span class="s2">"repeat"</span><span class="err">:</span><span class="mi">2</span><span class="p">,</span>
+        <span class="s2">"repeatInterval"</span><span class="err">:</span><span class="mi">5</span><span class="p">,</span>
+        <span class="s2">"sound"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+        <span class="s2">"alert"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+        <span class="s2">"email"</span><span class="err">:</span><span class="kc">true</span><span class="p">,</span>
+        <span class="s2">"push"</span><span class="err">:</span><span class="kc">true</span>
     <span class="p">}</span>
 </code></pre>
 
@@ -779,61 +791,61 @@ You must provide <code>ApiKey</code> with the request.
 </thead><tbody>
 <tr>
 <td>id</td>
-<td></td>
+<td>long</td>
 <td>900</td>
 <td>optional: if id is not specified then new alert will be created, or existing updated otherwise</td>
 </tr>
 <tr>
 <td>timeType</td>
-<td>int</td>
+<td>long</td>
 <td>4</td>
 <td>mandatory; possible values: 1 - specified time, 2 - days before, 3 - hours before, 4 - minutes before</td>
 </tr>
 <tr>
 <td>time</td>
-<td>int</td>
-<td></td>
+<td>long</td>
+<td>5</td>
 <td>mandatory if timeType in [2, 3, 4]</td>
 </tr>
 <tr>
 <td>timeSpecified</td>
-<td></td>
-<td>null</td>
+<td>date</td>
+<td>&ldquo;2016-08-31T11:00:00.000+04:00&rdquo;</td>
 <td>mandatory if timeType=1, format is same as for start_date and end_date of item object</td>
 </tr>
 <tr>
 <td>repeat</td>
-<td></td>
-<td>0</td>
+<td>long</td>
+<td>2</td>
 <td>optional: how many times reminder should be repeated</td>
 </tr>
 <tr>
 <td>repeatInterval</td>
-<td></td>
-<td>0</td>
+<td>long</td>
+<td>5</td>
 <td>optional: repeat interval in minutes</td>
 </tr>
 <tr>
 <td>sound</td>
-<td>bool</td>
+<td>boolean</td>
 <td>true</td>
 <td>optional: play sound</td>
 </tr>
 <tr>
 <td>alert</td>
-<td>bool</td>
+<td>boolean</td>
 <td>true</td>
 <td>optional: display notification in desktop/browser version of application</td>
 </tr>
 <tr>
 <td>email</td>
-<td>bool</td>
+<td>boolean</td>
 <td>true</td>
 <td>optional: send email</td>
 </tr>
 <tr>
 <td>push</td>
-<td>bool</td>
+<td>boolean</td>
 <td>true</td>
 <td>optional: send push notification to mobile device</td>
 </tr>
@@ -841,17 +853,17 @@ You must provide <code>ApiKey</code> with the request.
 
 <p>To Create/Update/Delete reminders:</p>
 <pre class="highlight javascript"><code><span class="p">[</span>
-    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s2">"time"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"timeSpecified"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"repeat"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s2">"time"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"repeat"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
     <span class="s2">"repeatInterval"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"sound"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"alert"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
     <span class="s2">"email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"push"</span><span class="p">:</span><span class="kc">true</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s2">"time"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="s2">"timeSpecified"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"repeat"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s2">"time"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="s2">"repeat"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
     <span class="s2">"repeatInterval"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"sound"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"alert"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
     <span class="s2">"push"</span><span class="p">:</span><span class="kc">true</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s2">"time"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"timeSpecified"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"repeat"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s2">"time"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"repeat"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
     <span class="s2">"repeatInterval"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"sound"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"alert"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
     <span class="s2">"push"</span><span class="p">:</span><span class="kc">true</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"time"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"timeSpecified"</span><span class="p">:</span><span class="s2">"2016-08-31T11:00:00.000+04:00"</span><span class="p">,</span>
-    <span class="s2">"repeat"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"repeatInterval"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"sound"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"alert"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+    <span class="p">{</span><span class="s2">"timeType"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"timeSpecified"</span><span class="p">:</span><span class="s2">"2016-08-31T11:00:00.000+04:00"</span><span class="p">,</span>
+    <span class="s2">"repeat"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"repeatInterval"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"sound"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"alert"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
     <span class="s2">"email"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"push"</span><span class="p">:</span><span class="kc">true</span><span class="p">}</span>
 <span class="p">]</span>
 </code></pre>
@@ -1042,6 +1054,11 @@ You must provide <code>ApiKey</code> with the request.
 <td>400</td>
 <td>78</td>
 <td>Cannot remove {assignee/participant} {user name} permission.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>80</td>
+<td>Short name already used.</td>
 </tr>
 </tbody></table>
 
