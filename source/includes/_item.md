@@ -12,6 +12,8 @@ Operations with items: tasks, events, projects, notes, files.
 |guid        |String (UDID)        |123456abcdef        |Globally unique item Identifier used for public sharing    |
 |user_id        |long        |123000        |user id of owner, user who created this item    |  
 |title        |String (512)        |My Task        |title    |  
+|short_name        |String (8)        |APIDOCS        |Short name of project. Accepted by projects only. Restrictions: 8 characters length maximum, latin letters and digits.    |  
+|issue_id        |String        |APIDOCS-17        |Unique reference identifier for tasks and projects.    |  
 |completed        |int        |0        |Indication if this item is completed    |  
 |color        |int        |0        |Color tag (index of predefined colors) used for items (tasks, events, notes, ..). Onde of these colors: [no color, '#FB7E6E', '#F8B957', '#F3DF5B', '#C2D95B', '#6CB4FF', '#CAA4DF', '#B8B8B8']    | 
 |color_value        |Strng        |#5e93c3        |Color value used for projects. Default: #5e93c3<br/>One of these colors: ['#5e93c3', '#fc2f6a', '#fd9426', '#fecb2e', '#55ce2e', '#cb77df', '#a18460']    | 
@@ -165,6 +167,7 @@ HTTP code | API Error code | Description
 400 | 76 | Owner {owner name} is not allowed to change own permission.
 400 | 77 | Permission {principal X} downgrade to {permission X} is not allowed because parent has {permission Y} for this principal.
 400 | 78 | Cannot remove {assignee/participant} {user name} permission.
+400 | 80 | Short name already used.
 
 
 ## 4. Delete
