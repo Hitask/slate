@@ -23,7 +23,7 @@ Operations with items: tasks, events, projects, notes, files.
 |participants        |comma separated list of user identifiers        |322,413        |array of user id for this item participants    |    
 |start_date        |Date        |2012-03-15T19:00:00.000+10:00        |Start date and time for this item. Default:null.    | |<code>end_date        |Date        |2012-03-15T19:00:00.000+10:00        |End date and time for this item. Default:null.    |
 |is_all_day        |int        |0        |Indicator that this item is "all day" event. Only date without time should be used from start/end date field..    |
-|alerts        |JSON array        |  See "Alerts" below    | |    
+|alerts        |JSON array of JSON objects        |  See "Alerts" below    | |    
 |shared        |int        |0        |0: Item is private. 1: item is shared, visile to team memebrs (Business account feature)    |
 |time_last_update        |Date        |2012-03-15T19:00:00.000+10:00        |Timestamp when this item was last changed (updated).    |
 |time_create        |Date        |2012-03-15T19:00:00.000+10:00        |Timestamp when this item was created.    |
@@ -42,31 +42,31 @@ Operations with items: tasks, events, projects, notes, files.
 
 ```js
     {
-        "id":900, // optional: if id is not specified then new alert will be created, or existing updated otherwise
-        "timeType":4, // mandatory; possible values: 1 - specified time, 2 - days before, 3 - hours before, 4 - minutes before
-        "time":0, // mandatory if timeType in [2, 3, 4]
-        "timeSpecified":null, // mandatory if timeType=1, format is same as for start_date and end_date of item object
-        "repeat":0, // optional: how many times reminder should be repeated
-        "repeatInterval":0, // optional: repeat interval in minutes
-        "sound":true, // optional: play sound
-        "alert":true, // optional: display notification in desktop/browser version of application
-        "email":true, // optional: send email
-        "push":true // optional: send push notification to mobile device
+        "id":900,
+        "timeType":4,
+        "time":5,
+        "timeSpecified":"2016-08-31T11:00:00.000+04:00",
+        "repeat":2,
+        "repeatInterval":5,
+        "sound":true,
+        "alert":true,
+        "email":true,
+        "push":true
     }
 ```
 
 |Field        |Type         |Example         |Description|
 |-------------|-------------|----------------|-----------|
-|id | | 900 | optional: if id is not specified then new alert will be created, or existing updated otherwise |
-|timeType| int | 4 |  mandatory; possible values: 1 - specified time, 2 - days before, 3 - hours before, 4 - minutes before |
-|time | int |  | mandatory if timeType in [2, 3, 4] |
-|timeSpecified | | null|  mandatory if timeType=1, format is same as for start_date and end_date of item object |
-|repeat | | 0 | optional: how many times reminder should be repeated |
-|repeatInterval | | 0| optional: repeat interval in minutes |
-|sound | bool | true |  optional: play sound |
-|alert | bool | true | optional: display notification in desktop/browser version of application |
-|email | bool | true | optional: send email |
-|push | bool | true |optional: send push notification to mobile device |
+|id | long | 900 | optional: if id is not specified then new alert will be created, or existing updated otherwise |
+|timeType| long | 4 |  mandatory; possible values: 1 - specified time, 2 - days before, 3 - hours before, 4 - minutes before |
+|time | long | 5 | mandatory if timeType in [2, 3, 4] |
+|timeSpecified | date | "2016-08-31T11:00:00.000+04:00"|  mandatory if timeType=1, format is same as for start_date and end_date of item object |
+|repeat | long | 2 | optional: how many times reminder should be repeated |
+|repeatInterval | long | 5| optional: repeat interval in minutes |
+|sound | boolean | true |  optional: play sound |
+|alert | boolean | true | optional: display notification in desktop/browser version of application |
+|email | boolean | true | optional: send email |
+|push | boolean | true |optional: send push notification to mobile device |
         
 
 
@@ -74,17 +74,17 @@ To Create/Update/Delete reminders:
 
 ```javascript
 [
-    {"timeType":4,"time":0,"timeSpecified":null,"repeat":0,
+    {"timeType":4,"time":0,"repeat":1,
     "repeatInterval":0,"sound":true,"alert":true,
     "email":true,"push":true},
-    {"timeType":4,"time":5,"timeSpecified":null,"repeat":0,
+    {"timeType":4,"time":5,"repeat":1,
     "repeatInterval":0,"sound":true,"alert":true,"email":true,
     "push":true},
-    {"timeType":3,"time":1,"timeSpecified":null,"repeat":0,
+    {"timeType":3,"time":1,"repeat":1,
     "repeatInterval":0,"sound":true,"alert":true,"email":true,
     "push":true},
-    {"timeType":1,"time":0,"timeSpecified":"2016-08-31T11:00:00.000+04:00",
-    "repeat":0,"repeatInterval":0,"sound":true,"alert":true,
+    {"timeType":1,"timeSpecified":"2016-08-31T11:00:00.000+04:00",
+    "repeat":1,"repeatInterval":0,"sound":true,"alert":true,
     "email":true,"push":true}
 ]
 ```
