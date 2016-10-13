@@ -88,7 +88,7 @@ Input parameters:
 |lastName       |String        |user's Last Name|
 |emailConfirmed        |String        |Email address that was confirmed by the user. (By clicking confirmaiton link sent to this email address.)|
 |email        |String        |Email address that user entered but not confirmed.|
-|businessId        |Integer        |unique identifier of user's Business group account, if applicable |
+|businessId        |Integer        |unique identifier of user's Team Business account, if applicable |
 |businessLevel        |Integer        |Membership level of user in Business account|
 |pictureHash        |String        |Unique avatar identifier that should be used in order to build user avatar URL|
 |pictureSource|Integer| Type of user avatar: See below  |
@@ -157,3 +157,96 @@ JSON object with one property "hash": unique picture identifier.
 
 Input parameters:
 * returninfo: (optional) if "true" then full account info will be returned as described in `GET /user`
+
+
+## Get User Preferences
+
+* `GET /user/preferences`
+
+> Example response:
+
+```js
+{
+    "notify_app_item_deleted": "true",
+    "notify_app_item_completed": "true",
+    "ttstart": "06:00",
+    "first_day_of_week": "1",
+    "comment_order": "1",
+    "notify_app": "true",
+    "default_new_item_use_last": "true",
+    "show_confirmation_complete": "true",
+    "notify_app_item_tags": "true",
+    "notify_web": "true",
+    "default_sharing_permission_auto": "[{\"principal\":16686710,\"level\":100}]",
+    "default_new_item_sharing_permission": "[{\"principal\":18556710,\"level\":100}]",
+    "show_issue_sequence_id": "false",
+    "notify_web_item_participant": "true",
+    "desktopNotifyState": "0",
+    "notify_email": "true",
+    "time_zone": "Europe/Paris",
+    "language": "en",
+    "default_sharing_permission_last": "[{\"level\":100,\"principal\":\"18556710\"}]",
+    "notify_web_item_attachment": "true",
+    "main_assign_user": "186905",
+    "notify_app_item_comment": "true",
+    "notify_email_item_tags": "true",
+    "enable_time_tracking": "false",
+    "notify_app_item_participant": "true",
+    "default_sharing_permission": "50",
+    "notify_email_item_modify": "true",
+    "notify_web_item_completed": "true",
+    "notify_web_item_priority": "true",
+    "default_shared_1": "false",
+    "notify_web_item_comment": "true",
+    "default_shared_0": "true",
+    "time_format": "24",
+    "notify_email_item_reminder": "true",
+    "notify_email_item_priority": "true",
+    "default_assign_user": "0",
+    "sub_task_complete_affect_parent": "false",
+    "notify_email_item_attachment": "true",
+    "duplicate_with_files": "false",
+    "notify_email_item_participant": "true",
+    "daily_summary_email_6": "true",
+    "daily_summary_email_7": "true",
+    "daily_summary_email_4": "true",
+    "daily_summary_email_5": "true",
+    "daily_summary_email_2": "true",
+    "daily_summary_email_3": "true",
+    "daily_summary_email_1": "true",
+    "bigCalendarMode": "month",
+    "daily_summary_email_": "true",
+    "override_parent_permission_with_last_used": "false",
+    "notify_web_item_modify": "true",
+    "notify_app_item_attachment": "true",
+    "notify_email_item_comment": "true",
+    "notify_web_item_tags": "true",
+    "notify_email_item_completed": "true",
+    "date_format": "d-m-y",
+    "notify_email_item_deleted": "true",
+    "taskfilter": "0",
+    "notify_web_item_deleted": "true",
+    "notify_app_item_priority": "true",
+    "notify_app_item_assigned": "true",
+    "notify_web_item_assigned": "true",
+    "notify_email_item_assigned": "true",
+    "default_shared": "false",
+    "item.action.combobutton.last-used": "DELETE",
+    "notify_app_item_modify": "true",
+}
+```
+
+
+## Set User Preferences
+
+* `POST /user/preferences`
+
+Request body contain dictionary of key-value pairs
+
+> Example request body:
+
+```js
+{
+notify_app_item_deleted: "true"
+}
+```
