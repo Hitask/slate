@@ -303,7 +303,7 @@ You must provide <code>ApiKey</code> with the request.
 <tr>
 <td>businessId</td>
 <td>Integer</td>
-<td>unique identifier of user&rsquo;s Business group account, if applicable</td>
+<td>unique identifier of user&rsquo;s Team Business account, if applicable</td>
 </tr>
 <tr>
 <td>businessLevel</td>
@@ -388,17 +388,184 @@ You must provide <code>ApiKey</code> with the request.
 <p>Input parameters:
 * returninfo: (optional) if &ldquo;true&rdquo; then full account info will be returned as described in <code class="prettyprint">GET /user</code></p>
 
+<h2 id="get-user-preferences">Get User Preferences</h2>
+
+<ul>
+<li><code class="prettyprint">GET /user/preferences</code></li>
+</ul>
+
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"notify_app_item_deleted"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_app_item_completed"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"ttstart"</span><span class="err">:</span> <span class="s2">"06:00"</span><span class="p">,</span>
+    <span class="s2">"first_day_of_week"</span><span class="err">:</span> <span class="s2">"1"</span><span class="p">,</span>
+    <span class="s2">"comment_order"</span><span class="err">:</span> <span class="s2">"1"</span><span class="p">,</span>
+    <span class="s2">"notify_app"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"default_new_item_use_last"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"show_confirmation_complete"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_app_item_tags"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_web"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"default_sharing_permission_auto"</span><span class="err">:</span> <span class="s2">"[{\"principal\":16686710,\"level\":100}]"</span><span class="p">,</span>
+    <span class="s2">"default_new_item_sharing_permission"</span><span class="err">:</span> <span class="s2">"[{\"principal\":18556710,\"level\":100}]"</span><span class="p">,</span>
+    <span class="s2">"show_issue_sequence_id"</span><span class="err">:</span> <span class="s2">"false"</span><span class="p">,</span>
+    <span class="s2">"notify_web_item_participant"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"desktopNotifyState"</span><span class="err">:</span> <span class="s2">"0"</span><span class="p">,</span>
+    <span class="s2">"notify_email"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"time_zone"</span><span class="err">:</span> <span class="s2">"Europe/Paris"</span><span class="p">,</span>
+    <span class="s2">"language"</span><span class="err">:</span> <span class="s2">"en"</span><span class="p">,</span>
+    <span class="s2">"default_sharing_permission_last"</span><span class="err">:</span> <span class="s2">"[{\"level\":100,\"principal\":\"18556710\"}]"</span><span class="p">,</span>
+    <span class="s2">"notify_web_item_attachment"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"main_assign_user"</span><span class="err">:</span> <span class="s2">"186905"</span><span class="p">,</span>
+    <span class="s2">"notify_app_item_comment"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_email_item_tags"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"enable_time_tracking"</span><span class="err">:</span> <span class="s2">"false"</span><span class="p">,</span>
+    <span class="s2">"notify_app_item_participant"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"default_sharing_permission"</span><span class="err">:</span> <span class="s2">"50"</span><span class="p">,</span>
+    <span class="s2">"notify_email_item_modify"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_web_item_completed"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_web_item_priority"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"default_shared_1"</span><span class="err">:</span> <span class="s2">"false"</span><span class="p">,</span>
+    <span class="s2">"notify_web_item_comment"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"default_shared_0"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"time_format"</span><span class="err">:</span> <span class="s2">"24"</span><span class="p">,</span>
+    <span class="s2">"notify_email_item_reminder"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_email_item_priority"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"default_assign_user"</span><span class="err">:</span> <span class="s2">"0"</span><span class="p">,</span>
+    <span class="s2">"sub_task_complete_affect_parent"</span><span class="err">:</span> <span class="s2">"false"</span><span class="p">,</span>
+    <span class="s2">"notify_email_item_attachment"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"duplicate_with_files"</span><span class="err">:</span> <span class="s2">"false"</span><span class="p">,</span>
+    <span class="s2">"notify_email_item_participant"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"daily_summary_email_6"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"daily_summary_email_7"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"daily_summary_email_4"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"daily_summary_email_5"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"daily_summary_email_2"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"daily_summary_email_3"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"daily_summary_email_1"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"bigCalendarMode"</span><span class="err">:</span> <span class="s2">"month"</span><span class="p">,</span>
+    <span class="s2">"daily_summary_email_"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"override_parent_permission_with_last_used"</span><span class="err">:</span> <span class="s2">"false"</span><span class="p">,</span>
+    <span class="s2">"notify_web_item_modify"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_app_item_attachment"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_email_item_comment"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_web_item_tags"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_email_item_completed"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"date_format"</span><span class="err">:</span> <span class="s2">"d-m-y"</span><span class="p">,</span>
+    <span class="s2">"notify_email_item_deleted"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"taskfilter"</span><span class="err">:</span> <span class="s2">"0"</span><span class="p">,</span>
+    <span class="s2">"notify_web_item_deleted"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_app_item_priority"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_app_item_assigned"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_web_item_assigned"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"notify_email_item_assigned"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+    <span class="s2">"default_shared"</span><span class="err">:</span> <span class="s2">"false"</span><span class="p">,</span>
+    <span class="s2">"item.action.combobutton.last-used"</span><span class="err">:</span> <span class="s2">"DELETE"</span><span class="p">,</span>
+    <span class="s2">"notify_app_item_modify"</span><span class="err">:</span> <span class="s2">"true"</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
+
+<h2 id="set-user-preferences">Set User Preferences</h2>
+
+<ul>
+<li><code class="prettyprint">POST /user/preferences</code></li>
+</ul>
+
+<p>Request body contain dictionary of key-value pairs</p>
+
+<blockquote>
+<p>Example request body:</p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+<span class="nl">notify_app_item_deleted</span><span class="p">:</span> <span class="s2">"true"</span>
+<span class="p">}</span>
+</code></pre>
+
           <h1 id="team">Team</h1>
+
+<h2 id="1-get-team-account-information">1. Get Team account information</h2>
+
+<ul>
+<li><code class="prettyprint">GET /business</code></li>
+</ul>
+
+<blockquote>
+<p>Will produce the response: </p>
+</blockquote>
+<pre class="highlight javascript"><code><span class="p">{</span>
+    <span class="s2">"domainName"</span><span class="err">:</span> <span class="s2">"doman"</span><span class="p">,</span>
+    <span class="s2">"title"</span><span class="err">:</span> <span class="s2">"Development Team"</span><span class="p">,</span>
+    <span class="s2">"licensesNumber"</span><span class="err">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="s2">"licensesUsed"</span><span class="err">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s2">"storageQuota"</span><span class="err">:</span> <span class="mi">7500</span><span class="p">,</span>
+    <span class="s2">"storageUsed"</span><span class="err">:</span> <span class="mi">157</span><span class="p">,</span>
+    <span class="s2">"storageQuotaFormatted"</span><span class="err">:</span> <span class="s2">"7.50GB"</span><span class="p">,</span>
+    <span class="s2">"storageUsedFormatted"</span><span class="err">:</span> <span class="s2">"157MB"</span><span class="p">,</span>
+    <span class="s2">"expirationDate"</span><span class="err">:</span> <span class="s2">"2016-10-17T00:00:00.000+00:00"</span><span class="p">,</span>
+    <span class="s2">"emailInbox"</span><span class="err">:</span> <span class="s2">"2187b87d0bsds2dd9fe@hitask.com"</span><span class="p">}</span>
+</code></pre>
+
+<h3 id="response">Response</h3>
+
+<table><thead>
+<tr>
+<th></th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>domainName</td>
+<td>subdomain name e.g. comapny.hitask.com</td>
+</tr>
+<tr>
+<td>title</td>
+<td>Team name</td>
+</tr>
+<tr>
+<td>licensesNumber</td>
+<td>number of user licenses</td>
+</tr>
+<tr>
+<td>licensesUsed</td>
+<td>number of used user licenses</td>
+</tr>
+<tr>
+<td>storageQuota</td>
+<td>file storage space available (integer)</td>
+</tr>
+<tr>
+<td>storageUsed</td>
+<td>file storage space used (integer)</td>
+</tr>
+<tr>
+<td>storageQuotaFormatted</td>
+<td>file storage space available as humnan readable string</td>
+</tr>
+<tr>
+<td>storageUsedFormatted</td>
+<td>file storage space available as humnan readable string</td>
+</tr>
+<tr>
+<td>expirationDate</td>
+<td>Account expiration date for TRIAL or Next billing date for TEAM BUSINESS</td>
+</tr>
+<tr>
+<td>emailInbox</td>
+<td>Unique email address used to create tasks for team by email</td>
+</tr>
+</tbody></table>
 
 <p>Team members and team properties</p>
 
-<h2 id="1-get-list-of-team-members">1. Get list of team members</h2>
+<h2 id="2-get-list-of-team-members">2. Get list of team members</h2>
 
 <ul>
 <li><code class="prettyprint">GET /team</code></li>
 </ul>
 
-<h2 id="2-invite-to-join-team-account">2. Invite to join team account</h2>
+<h2 id="3-invite-to-join-team-account">3. Invite to join team account</h2>
 
 <ul>
 <li><code class="prettyprint">POST     /team/member</code> </li>
@@ -461,7 +628,7 @@ You must provide <code>ApiKey</code> with the request.
 </tr>
 </tbody></table>
 
-<h2 id="3-remove-team-member">3. Remove team member</h2>
+<h2 id="4-remove-team-member">4. Remove team member</h2>
 
 <p>Removes team member or invited user</p>
 
@@ -511,7 +678,7 @@ You must provide <code>ApiKey</code> with the request.
 </tr>
 </tbody></table>
 
-<h2 id="4-resend-invitation">4. Resend invitation</h2>
+<h2 id="5-resend-invitation">5. Resend invitation</h2>
 
 <p>In case user did not receive email invitation use this method to re-send invitation again</p>
 
