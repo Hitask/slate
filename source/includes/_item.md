@@ -134,17 +134,31 @@ Permission is defined by a level integer value.
 
 * `GET    /item` 
 
-This method will return array of all items: tasks, events, files including projects
+This method will return array of all items: tasks, events, files including projects.
+It returns X-Cursor HTTP header. Cursor is a unix timestamp of server response. Example: 1478802464. It equals to timestamp of latest modified returned item.
 
 ```javascript
-//TODO: example
+[{"id":3361634,"user_id":184743,"title":"event 5724 1","completed":false,"color":0,"color_value":"#2AAEF5","category":2,"message":null,"parent":0,"recurring":0,"recurring_interval":1,"recurring_end_date":"2017-08-26T15:56:46.820+04:00","time_last_update":"2016-08-26T18:04:04.340+04:00","time_create":"2016-08-26T18:04:04.340+04:00","start_date":"2016-08-27T00:00:00.000+04:00","end_date":null,"due_date":null,"is_all_day":true,"shared":true,"reminder_enabled":null,"reminder_time":null,"reminder_time_type":null,"starred":false,"time_track":false,"time_est":0,"time_spent":0,"priority":21720,"last_comment_id":null,"last_comment":null,"last_comment_user_id":null,"last_comment_create_datetime":null,"guid":"9769a9f9-726c-4ec8-a920-be16193c26a6","parentGuid":null,"assignee":0,"tags":null,"version":1,"instances":null,"participants":null,"publish_url":null,"location":null,"alerts":null,"unread":null,"short_name":null,"issue_id":"164","permission":100,"permissions":[{"level":100,"principal":"184743"}],"previews":null,"last_transition_time":null,"last_transition_user":null}
 ```
 
 ### 1.2 Get delta update of items
 
 * `GET  	/item/since/{timestamp}`
 
-Returns list of items that were changed or added since specified date
+Returns list of items that were changed or added since specified date.
+It returns X-Cursor HTTP header. Cursor is a unix timestamp of server response. Example: 1478802464. It equals to timestamp of latest modified returned item.
+Deprecated. Use /item/delta/{delta} instead.
+
+### 1.3 Get delta update of items
+
+* `GET      /item/delta/{delta}`
+
+Returns list of items that were changed or added since specified delta.
+It returns X-Cursor HTTP header. Cursor is a unix timestamp of server response. Example: 1478802464. It equals to timestamp of latest modified returned item.
+
+```javascript
+[{"id":3361634,"changed":false},{"id":3362490,"changed":false},{"id":3362767,"changed":false},{"id":3362336,"changed":false},{"id":3362771,"user_id":184743,"title":"delta api","completed":false,"color":0,"color_value":"#2AAEF5","category":1,"parent":0,"recurring":0,"recurring_interval":1,"recurring_end_date":"2017-11-14T12:25:29.964+04:00","time_last_update":"2016-11-14T13:36:57.539+04:00","time_create":"2016-11-14T13:36:19.429+04:00","shared":true,"starred":true,"time_track":false,"time_est":0,"time_spent":0,"priority":21760,"guid":"2141ab89-48ee-47b0-878e-c9ad304397b4","assignee":0,"version":2,"changed":true,"issue_id":"632","permission":100,"permissions":[{"level":60,"principal":"184769"},{"level":60,"principal":"184775"},{"level":100,"principal":"184743"}]}]
+```
 
 
 ## 2. Create Item
