@@ -25,7 +25,7 @@ search: true
 
 # Introduction
 
-[HiTask](http://hitask.com) is an online task and project management software. With hiTask you can share tasks and projects with your team, add multi-user comments, track time, attach files, produce reports and much more.
+[Hitask](http://hitask.com) is an online task and project management software. With Hitask you can share tasks and projects with your team, add multi-user comments, track time, attach files, produce reports and much more.
 
 * **RESTful.** API is designed in accordance with [REST](http://en.wikipedia.org/wiki/Representational_state_transfer) patterns and is so called RESTful API.
 * **JSON.** Hitask support JSON for serialization of data. Response data is returned as root element.
@@ -72,7 +72,7 @@ curl "api_endpoint_here"
 
 > Make sure to replace `your_key` with your API key.
 
-To access the API you need to have API Key. API Key is a unique identifier assigned to you. To get your Key simply go into your hiTask account settings page. You  will be asked to provide the name of your integration/app.
+To access the API you need to have API Key. API Key is a unique identifier assigned to you. To get your Key simply go into your Hitask account settings page. You  will be asked to provide the name of your integration/app.
 You are required to provide your API Key as a parameter for some methods, for example API Key is required when you authenticate user session: [User.authenticate](#user)
 
 
