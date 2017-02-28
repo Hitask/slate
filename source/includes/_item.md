@@ -165,6 +165,21 @@ It returns X-Cursor HTTP header. Cursor is a unix timestamp (in milliseconds) of
 
 * `POST    /item` will create new item
 
+### 2.1 Upload file
+
+* `POST /file/upload` will upload file and create respective file item
+* Request Content-Type should be `multipart/form-data`
+
+### Mandatory params:
+Param | Type | Description
+------------ | ------------- | ------------
+<code>session_id</code>| text | User session.
+<code>file</code>| binary | Content of file to upload.
+
+### Response fields:
+Field | Type | Description
+------------ | ------------- | ------------
+<code>id</code>| long | Globally unique primary identifier for a file item.
 
 ## 3. Update Item
 
