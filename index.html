@@ -1173,6 +1173,50 @@ It returns X-Cursor HTTP header. Cursor is a unix timestamp (in milliseconds) of
 <li><code class="prettyprint">POST    /item</code> will create new item</li>
 </ul>
 
+<h3 id="2-1-upload-file">2.1 Upload file</h3>
+
+<ul>
+<li><code class="prettyprint">POST /file/upload</code> will upload file and create respective file item</li>
+<li>Request Content-Type should be <code class="prettyprint">multipart/form-data</code></li>
+</ul>
+
+<h3 id="mandatory-params">Mandatory params:</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>session_id</code></td>
+<td>text</td>
+<td>User session.</td>
+</tr>
+<tr>
+<td><code>file</code></td>
+<td>binary</td>
+<td>Content of file to upload.</td>
+</tr>
+</tbody></table>
+
+<h3 id="response-fields">Response fields:</h3>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>id</code></td>
+<td>long</td>
+<td>Globally unique primary identifier for a file item.</td>
+</tr>
+</tbody></table>
+
 <h2 id="3-update-item">3. Update Item</h2>
 
 <ul>
