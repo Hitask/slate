@@ -176,6 +176,11 @@ Param | Type | Description
 <code>session_id</code>| text | User session.
 <code>file</code>| binary | Content of file to upload.
 
+### Optional params:
+Param | Type | Description
+------------ | ------------- | ------------
+<code>parent_id</code>| number | Parent item identifier.
+
 ### Response fields:
 Field | Type | Description
 ------------ | ------------- | ------------
