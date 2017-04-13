@@ -8,7 +8,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
-    autoprefixer-rails (6.7.2)
+    autoprefixer-rails (6.6.1)
       execjs
     backports (3.6.8)
     coffee-script (2.4.1)
