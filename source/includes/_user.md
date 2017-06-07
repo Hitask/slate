@@ -89,7 +89,7 @@ Input parameters:
 |emailConfirmed        |String        |Email address that was confirmed by the user. (By clicking confirmaiton link sent to this email address.)|
 |email        |String        |Email address that user entered but not confirmed.|
 |businessId        |Integer        |unique identifier of user's Team Business account, if applicable |
-|businessLevel        |Integer        |Membership level of user in Business account|
+|businessLevel        |Integer        |Membership level of user in Business account: 1 - member, 2 - manager, 10 - administrator, 100 - owner|
 |pictureHash        |String        |Unique avatar identifier that should be used in order to build user avatar URL|
 |pictureSource|Integer| Type of user avatar: See below  |
 
