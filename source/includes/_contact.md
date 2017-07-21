@@ -88,7 +88,7 @@ subscription: "BOTH"
         <td>String</td>
         <td>Unique address of user's avatar picture. <br/>To display the picture following URL composition should be used:<br/>
         [http|https]://htiask.com/avatar/[pictureHash].[pixel size].gif
-        <br/>where pixel size is one of 16,40,64,80
+        <br/>where pixel size is one of 16, 20, 22, 24, 32, 40, 44, 48, 64, 80, 88, 96, 100, 128, 192, 200
 </td>
     </tr>
     <tr>
