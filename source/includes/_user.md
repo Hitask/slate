@@ -105,7 +105,9 @@ Input parameters:
 * 1000 Unknown
     
 
+#### User avatar sizes
 
+Available user avatar image pixel sizes are: 16, 20, 22, 24, 32, 40, 44, 48, 64, 80, 88, 96, 100, 128, 192, 200
 
 
 
@@ -114,6 +116,7 @@ Input parameters:
 * `PUT /user`  Update current user account information
 
 Input parameters:
+
 * firstname: First Name
 * lastname: Last Name
 * email: e-mail address. If email address is different from previously stored, an email message with address confirmation will be sent
@@ -130,16 +133,19 @@ Input parameters:
 * `POST /user/picture`  Update current user avatar
 
 Input parameters:
+
 * picture: Picture data
 * x: (Optional) X coordinate of top left corner of square that will be used to crop the picture (x, y and width must be specified to crop the picture)
 * y: (Optional) Y coordinate of top left corner of square that will be used to crop the picture (x, y and width must be specified to crop the picture)
 * width: (Optional) Width of square that will be used to crop the picture (x, y and width must be specified to crop the picture)
 
 Restrictions:
+
 * max picture size is 1MB
-* allowed picture formats: "gif", "jpeg", "jpg", "png"
+* allowed image formats: "gif", "jpeg", "jpg", "png"
 
 Error codes:
+
 * HTTP 400 and code 32: picture upload failed, retry required
 * HTTP 400 and code 34: crop parameters are invalid
 * HTTP 400 and code 6: uploaded data is not a valid picture
@@ -156,6 +162,7 @@ JSON object with one property "hash": unique picture identifier.
 * `DELETE /user/picture`  Delete current user avatar
 
 Input parameters:
+
 * returninfo: (optional) if "true" then full account info will be returned as described in `GET /user`
 
 
