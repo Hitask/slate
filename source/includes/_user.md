@@ -113,13 +113,18 @@ Available user avatar image pixel sizes are: 16, 20, 22, 24, 32, 40, 44, 48, 64,
 
 ## Update User Account information
 
-* `PUT /user`  Update current user account information
+* `POST /user/update`  Update current user account information
 
 Input parameters:
 
 * firstname: First Name
 * lastname: Last Name
 * email: e-mail address. If email address is different from previously stored, an email message with address confirmation will be sent
+* loginId: user login id
+
+Additional parameters:
+
+* returnInfo: if `true` response will contain updated user info instead of response with operation status.
 
 
 ## Update User Avatar
