@@ -597,7 +597,7 @@ You must provide <code>ApiKey</code> with the request.
 <p>Available user avatar image pixel sizes are: 16, 20, 22, 24, 32, 40, 44, 48, 64, 80, 88, 96, 100, 128, 192, 200</p>
 <h2 id='update-user-account-information'>Update User Account information</h2>
 <ul>
-<li><code>PUT /user</code>  Update current user account information</li>
+<li><code>POST /user/update</code>  Update current user account information</li>
 </ul>
 
 <p>Input parameters:</p>
@@ -606,6 +606,13 @@ You must provide <code>ApiKey</code> with the request.
 <li>firstname: First Name</li>
 <li>lastname: Last Name</li>
 <li>email: e-mail address. If email address is different from previously stored, an email message with address confirmation will be sent</li>
+<li>loginId: user login id</li>
+</ul>
+
+<p>Additional parameters:</p>
+
+<ul>
+<li>returnInfo: if <code>true</code> response will contain updated user info instead of response with operation status.</li>
 </ul>
 <h2 id='update-user-avatar'>Update User Avatar</h2>
 <blockquote>
@@ -2181,6 +2188,442 @@ SELF means this is the current user.
 <tr>
 <td>503</td>
 <td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+</tr>
+</tbody></table>
+
+<p>Also, API uses following response codes:</p>
+
+<table><thead>
+<tr>
+<th>Response Code Name</th>
+<th>Response Code</th>
+<th>Description Template</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OK</td>
+<td>0</td>
+<td>&quot;Ok&quot;</td>
+</tr>
+<tr>
+<td>NOT_FOUND</td>
+<td>1</td>
+<td>&quot;%s not found&quot;</td>
+</tr>
+<tr>
+<td>UNIQUE_USER_PARAMETER_VIOLATION</td>
+<td>2</td>
+<td>&quot;User with given %s already exists&quot;</td>
+</tr>
+<tr>
+<td>NO_PERMISSIONS</td>
+<td>3</td>
+<td>&quot;No enough permissions %s&quot;</td>
+</tr>
+<tr>
+<td>IS_MANDATORY</td>
+<td>4</td>
+<td>&quot;%s is mandatory%s&quot;</td>
+</tr>
+<tr>
+<td>INVALID_DATA_FORMAT</td>
+<td>5</td>
+<td>&quot;Invalid data format of %s&quot;</td>
+</tr>
+<tr>
+<td>INVALID_DATA</td>
+<td>6</td>
+<td>&quot;%s is not valid %s&quot;</td>
+</tr>
+<tr>
+<td>SESSION_NOT_FOUND</td>
+<td>7</td>
+<td>&quot;Session not found, please authenticate first&quot;</td>
+</tr>
+<tr>
+<td>INVALID_API_KEY</td>
+<td>8</td>
+<td>&quot;Invalid API Key&quot;</td>
+</tr>
+<tr>
+<td>INVALID_JSON_VERSION</td>
+<td>9</td>
+<td>&quot;API version must be %s or higher&quot;</td>
+</tr>
+<tr>
+<td>STALE_OBJECT</td>
+<td>10</td>
+<td>&quot;You are trying to update old object, which was cnaged on %s&quot;</td>
+</tr>
+<tr>
+<td>BAD_TARGET_USER</td>
+<td>11</td>
+<td>&quot;Error sending message to user with id=%s&quot;</td>
+</tr>
+<tr>
+<td>LICENSE_OVERUSE</td>
+<td>12</td>
+<td>&quot;You have no enough licenses to add new user&quot;</td>
+</tr>
+<tr>
+<td>FILE_NOT_READY</td>
+<td>13</td>
+<td>&quot;File is not ready&quot;</td>
+</tr>
+<tr>
+<td>CONTACT_SELF_ADD</td>
+<td>14</td>
+<td>&quot;You can&#39;t add yourself to the contact list&quot;</td>
+</tr>
+<tr>
+<td>CONTACT_EXIST</td>
+<td>15</td>
+<td>&quot;Contact already exists&quot;</td>
+</tr>
+<tr>
+<td>USER_ALREADY_IN_BUSINESS</td>
+<td>16</td>
+<td>&quot;User %s already in a business group&quot;</td>
+</tr>
+<tr>
+<td>OPERATION_NOT_ALLOWED</td>
+<td>17</td>
+<td>&quot;%s operation is not allowed&quot;</td>
+</tr>
+<tr>
+<td>NO_EMAIL</td>
+<td>18</td>
+<td>&quot;No email provided for user&quot;</td>
+</tr>
+<tr>
+<td>EMAIL_NOT_VALIDATED</td>
+<td>19</td>
+<td>&quot;Email is not confirmed: please confirm your email address&quot;</td>
+</tr>
+<tr>
+<td>LIMIT_EXCEED</td>
+<td>20</td>
+<td>&quot;%s limit exceeded&quot;</td>
+</tr>
+<tr>
+<td>LOGIN_ID_TAKEN</td>
+<td>21</td>
+<td>&quot;Login id is already taken&quot;</td>
+</tr>
+<tr>
+<td>EMAIL_ALREADY_REGISTERED</td>
+<td>22</td>
+<td>&quot;Email is already registered&quot;</td>
+</tr>
+<tr>
+<td>CLIENT_UPGRADE_REQUIRED</td>
+<td>23</td>
+<td>&quot;Client upgrade required&quot;</td>
+</tr>
+<tr>
+<td>PARTICIPANTS_ADDING_ERROR</td>
+<td>24</td>
+<td>&quot;User %s couldn&#39;t be added as participant&quot;</td>
+</tr>
+<tr>
+<td>EXCEEDED_SIZE</td>
+<td>25</td>
+<td>&quot;Maximum size for %s is %s&quot;</td>
+</tr>
+<tr>
+<td>PAYMENT_ERROR</td>
+<td>30</td>
+<td>&quot;Payment error: %s&quot;</td>
+</tr>
+<tr>
+<td>PAYMENT_DATA_INVALID</td>
+<td>31,&quot;Payment data is not valid&quot;</td>
+<td></td>
+</tr>
+<tr>
+<td>PICTURE_UPLOAD_ERROR</td>
+<td>32</td>
+<td>&quot;Upload failed&quot;</td>
+</tr>
+<tr>
+<td>NOT_BUSINESS_USER</td>
+<td>33</td>
+<td>&quot;You are not a business user&quot;</td>
+</tr>
+<tr>
+<td>INVALID_PICTURE_CROP_PARAMETERS</td>
+<td>34</td>
+<td>&quot;Crop parameters are invalid&quot;</td>
+</tr>
+<tr>
+<td>INVALID_PICTURE_HASH</td>
+<td>35</td>
+<td>&quot;Provided picture hash either does not exist or you are not allowed to modify this picture.&quot;</td>
+</tr>
+<tr>
+<td>PASSWORD_NOT_MATCH</td>
+<td>36</td>
+<td>&quot;Provided password does not match your current password&quot;</td>
+</tr>
+<tr>
+<td>BUSINESS_DOMAIN_NAME_USED</td>
+<td>37</td>
+<td>&quot;This domain name is already in use&quot;</td>
+</tr>
+<tr>
+<td>REGISTER_INVALID_EMAIL_FORMAT</td>
+<td>38</td>
+<td>&quot;Invalid data format of email&quot;</td>
+</tr>
+<tr>
+<td>REGISTER_INVALID_LOGIN_FORMAT</td>
+<td>39</td>
+<td>&quot;Invalid data format of user name&quot;</td>
+</tr>
+<tr>
+<td>REGISTER_INVALID_NAME_FORMAT</td>
+<td>40</td>
+<td>&quot;Invalid data format of first name or last name&quot;</td>
+</tr>
+<tr>
+<td>FREE_PROJECTS_LIMIT_EXCEEDED</td>
+<td>41</td>
+<td>&quot;Free projects limit exceeded&quot;</td>
+</tr>
+<tr>
+<td>FREE_TASKS_LIMIT_EXCEEDED</td>
+<td>42</td>
+<td>&quot;Free tasks limit exceeded&quot;</td>
+</tr>
+<tr>
+<td>API_KEY_ALREADY_EXISTS</td>
+<td>43</td>
+<td>&quot;You already created the API key, please delete it before creating the new&quot;</td>
+</tr>
+<tr>
+<td>INVITATION_USED</td>
+<td>45</td>
+<td>&quot;Invitation already used&quot;</td>
+</tr>
+<tr>
+<td>INVALID_JSON_BODY</td>
+<td>46</td>
+<td>&quot;The JSON body you provided in request is invalid&quot;</td>
+</tr>
+<tr>
+<td>INVALID_RECURRING_INTERVAL</td>
+<td>47</td>
+<td>&quot;Minimum recurring interval value is %d. Maximum recurring interval value is %d&quot;</td>
+</tr>
+<tr>
+<td>ACCOUNT_TERMINATED</td>
+<td>48</td>
+<td>&quot;Sorry but your account was terminated&quot;</td>
+</tr>
+<tr>
+<td>UNSUPPORTED_EXTERNAL_PROVIDER_ID</td>
+<td>49</td>
+<td>&quot;Such external social provider is not supported&quot;</td>
+</tr>
+<tr>
+<td>EXTERNAL_ACCOUNT_DETAILS_INVALID</td>
+<td>50</td>
+<td>&quot;External account details are not full or invalid&quot;</td>
+</tr>
+<tr>
+<td>EXTERNAL_ACCOUNT_EMAIL_DOES_NOT_MATCH_INVITATION_EMAIL</td>
+<td>51</td>
+<td>&quot;External account email must be equal to email used in this invitation&quot;</td>
+</tr>
+<tr>
+<td>EXTERNAL_SYNC_REFRESH_TOKEN_REQUIRED</td>
+<td>52</td>
+<td>&quot;Refresh token is required for external synchronization because of its offline nature&quot;</td>
+</tr>
+<tr>
+<td>EXTERNAL_SYNC_EXTERNAL_ACCOUNT_REQUIRED</td>
+<td>53</td>
+<td>&quot;You do not have required %s account linked&quot;</td>
+</tr>
+<tr>
+<td>INSUFFICIENT_API_KEY_PERMISSIONS</td>
+<td>54</td>
+<td>&quot;The API key you provided has not enough permission in order to run requested command&quot;</td>
+</tr>
+<tr>
+<td>NOT_READY</td>
+<td>55</td>
+<td>&quot;%s is not ready&quot;</td>
+</tr>
+<tr>
+<td>EXTERNAL_ACCOUNT_ALREADY_LINKED</td>
+<td>56</td>
+<td>&quot;This %s account is already used %s&quot;</td>
+</tr>
+<tr>
+<td>EXTERNAL_ACCOUNT_TYPE_ALREADY_LINKED</td>
+<td>57</td>
+<td>&quot;You already have external account of this type linked&quot;</td>
+</tr>
+<tr>
+<td>MIRROR_ITEM_MODIFICATION_FORBIDDEN</td>
+<td>58</td>
+<td>&quot;You are not allowed to %s this item&quot;</td>
+</tr>
+<tr>
+<td>EXTERNAL_SYNC_IS_RUNNING</td>
+<td>59</td>
+<td>&quot;External synchronization is being executed currently.%s&quot;</td>
+</tr>
+<tr>
+<td>UNKNOWN_PRODUCT_OR_PLAN</td>
+<td>60</td>
+<td>&quot;Selected product plan and/or product is not supported&quot;</td>
+</tr>
+<tr>
+<td>UNKNOWN_PPAYMENT_PROCESSOR</td>
+<td>61</td>
+<td>&quot;Could not process your payment using selected processor %s&quot;</td>
+</tr>
+<tr>
+<td>ALREADY_SUBSCRIBED</td>
+<td>62</td>
+<td>&quot;You are already subscribed to this plan.&quot;</td>
+</tr>
+<tr>
+<td>LICENSE_USAGE_GREATER_THAN_PLAN_LICENSES</td>
+<td>63</td>
+<td>&quot;Current team license usage is greater than number of licenses of selected subscription plan.&quot;</td>
+</tr>
+<tr>
+<td>ALREADY_PUBLISHED_PLAN</td>
+<td>64</td>
+<td>&quot;Such subscription plan already published.&quot;</td>
+</tr>
+<tr>
+<td>NO_PERMISSIONS_TO_MANAGE_SUBSCRIPTION</td>
+<td>65</td>
+<td>&quot;Team account administrator %s is responsible for renewing the subscription.&quot;</td>
+</tr>
+<tr>
+<td>GOOGLE_NOTIFICATIONS_OVERLOADED</td>
+<td>66</td>
+<td>&quot;Google notifications processor overloaded: please try again in few seconds&quot;</td>
+</tr>
+<tr>
+<td>CUSTOM_API_KEY_USAGE_LIMIT_EXCEEDED</td>
+<td>67</td>
+<td>&quot;You are performing too many API requests per second&quot;</td>
+</tr>
+<tr>
+<td>CANT_REMOVE_PLAN</td>
+<td>68</td>
+<td>&quot;Plan can be removed only if it is unpublished and without customers.&quot;</td>
+</tr>
+<tr>
+<td>ACCOUNT_EXPIRED</td>
+<td>69</td>
+<td>&quot;Account subscription expired. Please visit http://%s to subscribe.&quot;)</td>
+</tr>
+<tr>
+<td>EXTERNAL_ACCOUNT_CREDENTIALS_EXPIRED</td>
+<td>70</td>
+<td>&quot;It appears that %s access token expired. Please visit Settings, remove external account and link it again with HiTask. Sorry for the inconvenience.&quot;</td>
+</tr>
+<tr>
+<td>EXTERNAL_ERROR</td>
+<td>71</td>
+<td>&quot;Error: %s.&quot;</td>
+</tr>
+<tr>
+<td>TEAM_ACCOUNT_TERMINATED_ERROR</td>
+<td>72</td>
+<td>&quot;Team account terminated.&quot;</td>
+</tr>
+<tr>
+<td>UNABLE_TO_SHARE_BECAUSE_OF_PROJECT</td>
+<td>73</td>
+<td>&quot;Unable to add %s because project/parent item is not shared with %s&quot;</td>
+</tr>
+<tr>
+<td>UNABLE_TO_ALTER_PERMISSION_OF_CHILD_TASK</td>
+<td>74</td>
+<td>&quot;%s permission can not be %s because it will conflict with parent %s permissions.&quot;</td>
+</tr>
+<tr>
+<td>UNABLE_TO_ASSIGN_OR_PARTICIPATE_BECAUSE_NO_PERMISSIONS</td>
+<td>75</td>
+<td>&quot;%s can not be %s because they don&#39;t have access to project %s&quot;</td>
+</tr>
+<tr>
+<td>OWNER_CANT_CHANGE_OWN_PERMISSION</td>
+<td>76</td>
+<td>&quot;Owner %s is not allowed to change own permission&quot;</td>
+</tr>
+<tr>
+<td>UNABLE_TO_DOWNGRADE_PERMISSION</td>
+<td>77</td>
+<td>&quot;Permission &#39;%s&#39; downgrade to &#39;%s&#39; is not allowed because parent has &#39;%s&#39; for this principal&quot;</td>
+</tr>
+<tr>
+<td>UNABLE_TO_REMOVE_PERMISSION_OF_ASSIGNEE_OR_PARTICIPANT</td>
+<td>78</td>
+<td>&quot;Cannot remove %s %s permission&quot;</td>
+</tr>
+<tr>
+<td>USER_ALREADY_INVITED_IN_THIS_TEAM</td>
+<td>79</td>
+<td>&quot;User %s already invited in current team&quot;</td>
+</tr>
+<tr>
+<td>SHORT_NAME_ALREADY_USED</td>
+<td>80</td>
+<td>&quot;Short name already used&quot;</td>
+</tr>
+<tr>
+<td>UNABLE_TO_PARSE_FILE</td>
+<td>81</td>
+<td>&quot;Unable to parse the file&quot;</td>
+</tr>
+<tr>
+<td>PARSED_FILE_CONTAINS_NO_ENTRIES</td>
+<td>82</td>
+<td>&quot;Parsed file contains 0 entries&quot;</td>
+</tr>
+<tr>
+<td>FILE_FORMAT_NOT_SUPPORTED</td>
+<td>83</td>
+<td>&quot;File format is not supported&quot;</td>
+</tr>
+<tr>
+<td>INVALID_GOOGLE_AUTH_CODE</td>
+<td>84</td>
+<td>&quot;%s is not valid google auth code%s&quot;</td>
+</tr>
+<tr>
+<td>FORBIDDEN_TO_ACCESS_AREA</td>
+<td>85</td>
+<td>&quot;You are not allowed to access %s. Account upgrade required.&quot;</td>
+</tr>
+<tr>
+<td>ENDPOINT_DEPRECATED</td>
+<td>86</td>
+<td>&quot;Current endpoint deprecated since %s.&quot;</td>
+</tr>
+<tr>
+<td>SCORE_LIMIT_REACHED</td>
+<td>87</td>
+<td>&quot;\&quot;%s\&quot; daily limit reached.&quot;</td>
+</tr>
+<tr>
+<td>INVALID_PICTURE_MINIMUM_EDGE_LENGTH</td>
+<td>88</td>
+<td>&quot;Minimum length for each edge of the picture is %spx&quot;</td>
+</tr>
+<tr>
+<td>INTERNAL_ERROR</td>
+<td>100</td>
+<td>&quot;Internal error&quot;</td>
 </tr>
 </tbody></table>
 
