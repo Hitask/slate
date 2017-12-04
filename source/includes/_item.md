@@ -11,17 +11,17 @@ Operations with items: tasks, events, projects, notes, files.
 |id        |long        |123000        |Globally unique item Identifier    |
 |guid        |String (UDID)        |123456abcdef        |Globally unique item Identifier used for public sharing    |
 |user_id        |long        |123000        |user id of owner, user who created this item    |  
-|title        |String (512)        |My Task        |title    |  
+|title        |String (256)        |My Task        |title    |  
 |short_name        |String (8)        |APIDOCS        |Short name of project. Accepted by projects only. Restrictions: 8 characters length maximum, latin letters and digits.    |  
 |issue_id        |String        |APIDOCS-17        |Unique reference identifier for tasks and projects.    |  
 |completed        |int        |0        |Indication if this item is completed    |  
-|color        |int        |0        |Color tag (index of predefined colors) used for items (tasks, events, notes, ..). Onde of these colors: [no color, '#FB7E6E', '#F8B957', '#F3DF5B', '#C2D95B', '#6CB4FF', '#CAA4DF', '#B8B8B8']    | 
-|color_value        |Strng        |#5e93c3        |Color value used for projects. Default: #5e93c3<br/>One of these colors: ['#5e93c3', '#fc2f6a', '#fd9426', '#fecb2e', '#55ce2e', '#cb77df', '#a18460']    | 
-|category        |int        |1        |Category (or type) of item: 0:project 1: task 2:event 4: note 5:file    | 
-|message        |String (5000)        |Hello        |Item description text    | 
-|parent        |long        |0        |Unique id of parent item. Default: 0. 0 means item is not child of another item and not inside of project    | 
-|recurring        |int        |0        |0: not recurring, 1: daily, 2: weekly, 3: monthly, 4: yearly    | 
-|assigneeId        |long        |0        |Assignee, primary responsible person. User id of user whom item is assigned to    | 
+|color        |int        |0        |Color tag (index of predefined colors) used for items (tasks, events, notes, ..). Onde of these colors: [no color, '#FB7E6E', '#F8B957', '#F3DF5B', '#C2D95B', '#6CB4FF', '#CAA4DF', '#B8B8B8']    |
+|color_value        |Strng        |#5e93c3        |Color value used for projects. Default: #5e93c3<br/>One of these colors: ['#5e93c3', '#fc2f6a', '#fd9426', '#fecb2e', '#55ce2e', '#cb77df', '#a18460']    |
+|category        |int        |1        |Category (or type) of item: 0:project 1: task 2:event 4: note 5:file    |
+|message        |String (5000)        |Hello        |Item description text    |
+|parent        |long        |0        |Unique id of parent item. Default: 0. 0 means item is not child of another item and not inside of project    |
+|recurring        |int        |0        |0: not recurring, 1: daily, 2: weekly, 3: monthly, 4: yearly    |
+|assigneeId        |long        |0        |Assignee, primary responsible person. User id of user whom item is assigned to    |
 |participants        |comma separated list of user identifiers        |322,413        |array of user id for this item participants    |    
 |start_date        |Date        |2012-03-15T19:00:00.000+10:00        |Start date and time for this item. Default:null.    | |<code>end_date        |Date        |2012-03-15T19:00:00.000+10:00        |End date and time for this item. Default:null.    |
 |is_all_day        |int        |0        |Indicator that this item is "all day" event. Only date without time should be used from start/end date field..    |
@@ -132,7 +132,7 @@ Permission is defined by a level integer value.
 ## 1. Get array of items
 
 
-* `GET    /item` 
+* `GET    /item`
 
 This method will return array of all items: tasks, events, files including projects.
 It returns X-Cursor HTTP header. Cursor is a unix timestamp (in milliseconds) of server response. Example: 1478802464. It equals to timestamp of latest modified returned item.
@@ -223,7 +223,7 @@ Possible HTTP return responses:
 
 ### 5.1 Retrieve item history including comments:
 
-* `GET    /item/history?id={item id}` 
+* `GET    /item/history?id={item id}`
 
 ### 5.2 Add comment
 
@@ -237,7 +237,7 @@ Parameters: id: item id, message: comment body text
 
 
 
-## 6. Archive 
+## 6. Archive
 
 ### 6.1 Archive item
 
