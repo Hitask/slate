@@ -18,7 +18,7 @@ Operations with items: tasks, events, projects, notes, files.
 |color        |int        |0        |Color tag (index of predefined colors) used for items (tasks, events, notes, ..). Onde of these colors: [no color, '#FB7E6E', '#F8B957', '#F3DF5B', '#C2D95B', '#6CB4FF', '#CAA4DF', '#B8B8B8']    |
 |color_value        |Strng        |#5e93c3        |Color value used for projects. Default: #5e93c3<br/>One of these colors: ['#5e93c3', '#fc2f6a', '#fd9426', '#fecb2e', '#55ce2e', '#cb77df', '#a18460']    |
 |category        |int        |1        |Category (or type) of item: 0:project 1: task 2:event 4: note 5:file    |
-|message        |String (5000)        |Hello        |Item description text    |
+|message        |String (10000)        |Hello        |Item description text    |
 |parent        |long        |0        |Unique id of parent item. Default: 0. 0 means item is not child of another item and not inside of project    |
 |recurring        |int        |0        |0: not recurring, 1: daily, 2: weekly, 3: monthly, 4: yearly    |
 |assigneeId        |long        |0        |Assignee, primary responsible person. User id of user whom item is assigned to    |
