@@ -25,7 +25,7 @@ Get list of user's contacts
 
 ### Example response
 
-```js
+```javascript
 {
 email: "user@email.com"
 emailConfirmed: "user@email.com"

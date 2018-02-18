@@ -4,7 +4,7 @@ Operations related to current user's account: authenticate, sign up, etc.
 
 ## Authenticate
 
-```js
+```javascript
 
 {
     "api_key" : myapikey;
@@ -15,12 +15,22 @@ Operations related to current user's account: authenticate, sign up, etc.
 > Will produce the response: 
 
 
-```js
+```javascript
 {
     id : 12345678;
     level : 300;
     "session_id" : "e0f93451-5ad6-4550-b991-efb0ce1e271b";
 }
+```
+
+```shell
+curl -d "login=test&password=testtest&api_key={key}" -X GET https://{host}/user/authenticate
+```
+
+> Example response:
+
+```javascript
+{"login_id":"test","account_type":"PERSONAL_FREE","level":0,"session_id":"192ba608-c47a-4862-b838-a4wf45ff6ed7","id":4321,"picture_hash":"4d5d22b3-d00a-4ceb-9608-c3ad243r4e88","email":"test@email.com"}
 ```
 
 * `GET /user/authenticate` will authenticate user using user name and password
@@ -131,7 +141,7 @@ Additional parameters:
 
 >Example response:
 
-```js
+```javascript
 {"hash":"4b0c75c8-14cc-49b2-80aa-b49f5cf62daf"}
 ```
 
@@ -177,7 +187,7 @@ Input parameters:
 
 > Example response:
 
-```js
+```javascript
 {
     "notify_app_item_deleted": "true",
     "notify_app_item_completed": "true",
@@ -257,7 +267,7 @@ Request body contain dictionary of key-value pairs
 
 > Example request body:
 
-```js
+```javascript
 {
 notify_app_item_deleted: "true"
 }

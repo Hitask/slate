@@ -42,7 +42,7 @@ Operations with items: tasks, events, projects, notes, files.
 
 ### Alerts structure
 
-```js
+```javascript
     {
         "id":900,
         "timeType":4,

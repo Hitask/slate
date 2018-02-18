@@ -4,7 +4,7 @@ You need to check HTTP status in case there's an error. Basic rule is to check t
 
 When response statux is not 200 OK. The response contains Json date in format:
 
-```json
+```javascript
 {
  "error_message" : "This is an error message";
  "response_status" : 1;
