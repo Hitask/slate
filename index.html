@@ -1393,7 +1393,61 @@ You must provide <code>ApiKey</code> with the request.
 
 <p>This method will return array of all items: tasks, events, files including projects.
 It returns X-Cursor HTTP header. Cursor is a unix timestamp (in milliseconds) of server response. Example: 1478802464. It equals to timestamp of latest modified returned item.</p>
-<pre class="highlight javascript tab-javascript"><code><span class="p">[{</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">3361634</span><span class="p">,</span><span class="s2">"user_id"</span><span class="p">:</span><span class="mi">184743</span><span class="p">,</span><span class="s2">"title"</span><span class="p">:</span><span class="s2">"event 5724 1"</span><span class="p">,</span><span class="s2">"completed"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">"color"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"color_value"</span><span class="p">:</span><span class="s2">"#2AAEF5"</span><span class="p">,</span><span class="s2">"category"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">"message"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"parent"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"recurring"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"recurring_interval"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"recurring_end_date"</span><span class="p">:</span><span class="s2">"2017-08-26T15:56:46.820+04:00"</span><span class="p">,</span><span class="s2">"time_last_update"</span><span class="p">:</span><span class="s2">"2016-08-26T18:04:04.340+04:00"</span><span class="p">,</span><span class="s2">"time_create"</span><span class="p">:</span><span class="s2">"2016-08-26T18:04:04.340+04:00"</span><span class="p">,</span><span class="s2">"start_date"</span><span class="p">:</span><span class="s2">"2016-08-27T00:00:00.000+04:00"</span><span class="p">,</span><span class="s2">"end_date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"due_date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"is_all_day"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"shared"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"reminder_enabled"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"reminder_time"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"reminder_time_type"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"starred"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">"time_track"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">"time_est"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"time_spent"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"priority"</span><span class="p">:</span><span class="mi">21720</span><span class="p">,</span><span class="s2">"last_comment_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"last_comment"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"last_comment_user_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"last_comment_create_datetime"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"guid"</span><span class="p">:</span><span class="s2">"9769a9f9-726c-4ec8-a920-be16193c26a6"</span><span class="p">,</span><span class="s2">"parentGuid"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"assignee"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"tags"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"version"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"instances"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"participants"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"publish_url"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"location"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"alerts"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"unread"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"short_name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"issue_id"</span><span class="p">:</span><span class="s2">"164"</span><span class="p">,</span><span class="s2">"permission"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="s2">"permissions"</span><span class="p">:[{</span><span class="s2">"level"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="s2">"principal"</span><span class="p">:</span><span class="s2">"184743"</span><span class="p">}],</span><span class="s2">"previews"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"last_transition_time"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"last_transition_user"</span><span class="p">:</span><span class="kc">null</span><span class="p">}</span>
+<pre class="highlight javascript tab-javascript"><code><span class="p">[{</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="mi">3361634</span><span class="p">,</span>
+    <span class="s2">"user_id"</span><span class="p">:</span> <span class="mi">184743</span><span class="p">,</span>
+    <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"event 5724 1"</span><span class="p">,</span>
+    <span class="s2">"completed"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"color"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"color_value"</span><span class="p">:</span> <span class="s2">"#2AAEF5"</span><span class="p">,</span>
+    <span class="s2">"category"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"message"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"parent"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"recurring"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"recurring_interval"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"recurring_end_date"</span><span class="p">:</span> <span class="s2">"2017-08-26T15:56:46.820+04:00"</span><span class="p">,</span>
+    <span class="s2">"time_last_update"</span><span class="p">:</span> <span class="s2">"2016-08-26T18:04:04.340+04:00"</span><span class="p">,</span>
+    <span class="s2">"time_create"</span><span class="p">:</span> <span class="s2">"2016-08-26T18:04:04.340+04:00"</span><span class="p">,</span>
+    <span class="s2">"start_date"</span><span class="p">:</span> <span class="s2">"2016-08-27T00:00:00.000+04:00"</span><span class="p">,</span>
+    <span class="s2">"end_date"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"due_date"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"is_all_day"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"shared"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">"reminder_enabled"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"reminder_time"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"reminder_time_type"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"starred"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"time_track"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">"time_est"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"time_spent"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"priority"</span><span class="p">:</span> <span class="mi">21720</span><span class="p">,</span>
+    <span class="s2">"last_comment_id"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"last_comment"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"last_comment_user_id"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"last_comment_create_datetime"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"guid"</span><span class="p">:</span> <span class="s2">"9769a9f9-726c-4ec8-a920-be16193c26a6"</span><span class="p">,</span>
+    <span class="s2">"parentGuid"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"assignee"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"tags"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"version"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"instances"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"participants"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"publish_url"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"location"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"alerts"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"unread"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"short_name"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"issue_id"</span><span class="p">:</span> <span class="s2">"164"</span><span class="p">,</span>
+    <span class="s2">"permission"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">"permissions"</span><span class="p">:</span> <span class="p">[{</span>
+      <span class="s2">"level"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+      <span class="s2">"principal"</span><span class="p">:</span> <span class="s2">"184743"</span>
+    <span class="p">}],</span>
+    <span class="s2">"previews"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"last_transition_time"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"last_transition_user"</span><span class="p">:</span> <span class="kc">null</span>
+  <span class="p">}</span>
+
 </code></pre><h3 id='1-2-get-delta-update-of-items'>1.2 Get delta update of items</h3>
 <ul>
 <li><code>GET      /item/since/{timestamp}</code></li>
@@ -1409,12 +1463,79 @@ Deprecated. Use /item/delta/{delta} instead.</p>
 
 <p>Returns list of items that were changed or added since specified delta. Delta is is a unix timestamp (in milliseconds) fetched from header X-Cursor.
 It returns X-Cursor HTTP header. Cursor is a unix timestamp (in milliseconds) of server response. Example: 1478802464. It equals to timestamp of latest modified returned item.</p>
-<pre class="highlight javascript tab-javascript"><code><span class="p">[{</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">3361634</span><span class="p">,</span><span class="s2">"changed"</span><span class="p">:</span><span class="kc">false</span><span class="p">},{</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">3362490</span><span class="p">,</span><span class="s2">"changed"</span><span class="p">:</span><span class="kc">false</span><span class="p">},{</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">3362767</span><span class="p">,</span><span class="s2">"changed"</span><span class="p">:</span><span class="kc">false</span><span class="p">},{</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">3362336</span><span class="p">,</span><span class="s2">"changed"</span><span class="p">:</span><span class="kc">false</span><span class="p">},{</span><span class="s2">"id"</span><span class="p">:</span><span class="mi">3362771</span><span class="p">,</span><span class="s2">"user_id"</span><span class="p">:</span><span class="mi">184743</span><span class="p">,</span><span class="s2">"title"</span><span class="p">:</span><span class="s2">"delta api"</span><span class="p">,</span><span class="s2">"completed"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">"color"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"color_value"</span><span class="p">:</span><span class="s2">"#2AAEF5"</span><span class="p">,</span><span class="s2">"category"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"parent"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"recurring"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"recurring_interval"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">"recurring_end_date"</span><span class="p">:</span><span class="s2">"2017-11-14T12:25:29.964+04:00"</span><span class="p">,</span><span class="s2">"time_last_update"</span><span class="p">:</span><span class="s2">"2016-11-14T13:36:57.539+04:00"</span><span class="p">,</span><span class="s2">"time_create"</span><span class="p">:</span><span class="s2">"2016-11-14T13:36:19.429+04:00"</span><span class="p">,</span><span class="s2">"shared"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"starred"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"time_track"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">"time_est"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"time_spent"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"priority"</span><span class="p">:</span><span class="mi">21760</span><span class="p">,</span><span class="s2">"guid"</span><span class="p">:</span><span class="s2">"2141ab89-48ee-47b0-878e-c9ad304397b4"</span><span class="p">,</span><span class="s2">"assignee"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">"version"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">"changed"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">"issue_id"</span><span class="p">:</span><span class="s2">"632"</span><span class="p">,</span><span class="s2">"permission"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="s2">"permissions"</span><span class="p">:[{</span><span class="s2">"level"</span><span class="p">:</span><span class="mi">60</span><span class="p">,</span><span class="s2">"principal"</span><span class="p">:</span><span class="s2">"184769"</span><span class="p">},{</span><span class="s2">"level"</span><span class="p">:</span><span class="mi">60</span><span class="p">,</span><span class="s2">"principal"</span><span class="p">:</span><span class="s2">"184775"</span><span class="p">},{</span><span class="s2">"level"</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span><span class="s2">"principal"</span><span class="p">:</span><span class="s2">"184743"</span><span class="p">}]}]</span>
+<pre class="highlight javascript tab-javascript"><code><span class="p">[{</span>
+  <span class="s2">"id"</span><span class="p">:</span> <span class="mi">3361634</span><span class="p">,</span>
+  <span class="s2">"changed"</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">},</span> <span class="p">{</span>
+  <span class="s2">"id"</span><span class="p">:</span> <span class="mi">3362490</span><span class="p">,</span>
+  <span class="s2">"changed"</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">},</span> <span class="p">{</span>
+  <span class="s2">"id"</span><span class="p">:</span> <span class="mi">3362767</span><span class="p">,</span>
+  <span class="s2">"changed"</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">},</span> <span class="p">{</span>
+  <span class="s2">"id"</span><span class="p">:</span> <span class="mi">3362336</span><span class="p">,</span>
+  <span class="s2">"changed"</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">},</span> <span class="p">{</span>
+  <span class="s2">"id"</span><span class="p">:</span> <span class="mi">3362771</span><span class="p">,</span>
+  <span class="s2">"user_id"</span><span class="p">:</span> <span class="mi">184743</span><span class="p">,</span>
+  <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"delta api"</span><span class="p">,</span>
+  <span class="s2">"completed"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="s2">"color"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"color_value"</span><span class="p">:</span> <span class="s2">"#2AAEF5"</span><span class="p">,</span>
+  <span class="s2">"category"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"parent"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"recurring"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"recurring_interval"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"recurring_end_date"</span><span class="p">:</span> <span class="s2">"2017-11-14T12:25:29.964+04:00"</span><span class="p">,</span>
+  <span class="s2">"time_last_update"</span><span class="p">:</span> <span class="s2">"2016-11-14T13:36:57.539+04:00"</span><span class="p">,</span>
+  <span class="s2">"time_create"</span><span class="p">:</span> <span class="s2">"2016-11-14T13:36:19.429+04:00"</span><span class="p">,</span>
+  <span class="s2">"shared"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">"starred"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">"time_track"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="s2">"time_est"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"time_spent"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"priority"</span><span class="p">:</span> <span class="mi">21760</span><span class="p">,</span>
+  <span class="s2">"guid"</span><span class="p">:</span> <span class="s2">"2141ab89-48ee-47b0-878e-c9ad304397b4"</span><span class="p">,</span>
+  <span class="s2">"assignee"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="s2">"changed"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">"issue_id"</span><span class="p">:</span> <span class="s2">"632"</span><span class="p">,</span>
+  <span class="s2">"permission"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="s2">"permissions"</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="s2">"level"</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="s2">"principal"</span><span class="p">:</span> <span class="s2">"184769"</span>
+  <span class="p">},</span> <span class="p">{</span>
+    <span class="s2">"level"</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="s2">"principal"</span><span class="p">:</span> <span class="s2">"184775"</span>
+  <span class="p">},</span> <span class="p">{</span>
+    <span class="s2">"level"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">"principal"</span><span class="p">:</span> <span class="s2">"184743"</span>
+  <span class="p">}]</span>
+<span class="p">}]</span>
+
 </code></pre><h2 id='2-create-item'>2. Create Item</h2>
 <ul>
 <li><code>POST    /item</code> will create new item</li>
 </ul>
-<h3 id='2-1-upload-file'>2.1 Upload file</h3>
+<pre class="highlight plaintext"><code>Example Post data:
+
+title: Project title
+message: Desription
+category: 0
+newProject: true
+priority: 21010
+user_id: 190150
+color_value: #fc2f6a
+short_name: PROJ
+permissions: [{"principal":190150,"level":100}]
+start_date: 2018-05-05T23:59:59.999+02:00
+due_date: 2018-05-12T23:59:59.999+02:00
+cascadeAcl: 1
+permission: 100
+doAdd: true
+isSubItem: false
+manytasks: false
+</code></pre><h3 id='2-1-upload-file'>2.1 Upload file</h3>
 <ul>
 <li><code>POST /file/upload</code> will upload file and create respective file item</li>
 <li>Request Content-Type should be <code>multipart/form-data</code></li>
