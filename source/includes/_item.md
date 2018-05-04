@@ -10,11 +10,11 @@ Operations with items: tasks, events, projects, notes, files.
 |-------------|-------------|----------------|-----------|
 |id        |long        |123000        |Globally unique item Identifier    |
 |guid        |String (UDID)        |123456abcdef        |Globally unique item Identifier used for public sharing    |
-|user_id        |long        |123000        |user id of owner, user who created this item    |  
-|title        |String (256)        |My Task        |title    |  
-|short_name        |String (8)        |APIDOCS        |Short name of project. Accepted by projects only. Restrictions: 8 characters length maximum, latin letters and digits.    |  
-|issue_id        |String        |APIDOCS-17        |Unique reference identifier for tasks and projects.    |  
-|completed        |int        |0        |Indication if this item is completed    |  
+|user_id        |long        |123000        |user id of owner, user who created this item    |
+|title        |String (256)        |My Task        |title    |
+|short_name        |String (8)        |APIDOCS        |Short name of project. Accepted by projects only. Restrictions: 8 characters length maximum, latin letters and digits.    |
+|issue_id        |String        |APIDOCS-17        |Unique reference identifier for tasks and projects.    |
+|completed        |int        |0        |Indication if this item is completed    |
 |color        |int        |0        |Color tag (index of predefined colors) used for items (tasks, events, notes, ..). Onde of these colors: [no color, '#FB7E6E', '#F8B957', '#F3DF5B', '#C2D95B', '#6CB4FF', '#CAA4DF', '#B8B8B8']    |
 |color_value        |Strng        |#5e93c3        |Color value used for projects. Default: #5e93c3<br/>One of these colors: ['#5e93c3', '#fc2f6a', '#fd9426', '#fecb2e', '#55ce2e', '#cb77df', '#a18460']    |
 |category        |int        |1        |Category (or type) of item: 0:project 1: task 2:event 4: note 5:file    |
@@ -22,10 +22,10 @@ Operations with items: tasks, events, projects, notes, files.
 |parent        |long        |0        |Unique id of parent item. Default: 0. 0 means item is not child of another item and not inside of project    |
 |recurring        |int        |0        |0: not recurring, 1: daily, 2: weekly, 3: monthly, 4: yearly    |
 |assigneeId        |long        |0        |Assignee, primary responsible person. User id of user whom item is assigned to    |
-|participants        |comma separated list of user identifiers        |322,413        |array of user id for this item participants    |    
+|participants        |comma separated list of user identifiers        |322,413        |array of user id for this item participants    |
 |start_date        |Date        |2012-03-15T19:00:00.000+10:00        |Start date and time for this item. Default:null.    | |<code>end_date        |Date        |2012-03-15T19:00:00.000+10:00        |End date and time for this item. Default:null.    |
 |is_all_day        |int        |0        |Indicator that this item is "all day" event. Only date without time should be used from start/end date field..    |
-|alerts        |JSON array of JSON objects        |  See "Alerts" below    | |    
+|alerts        |JSON array of JSON objects        |  See "Alerts" below    | |
 |shared        |int        |0        |0: Item is private. 1: item is shared, visile to team memebrs (Business account feature)    |
 |time_last_update        |Date        |2012-03-15T19:00:00.000+10:00        |Timestamp when this item was last changed (updated).    |
 |time_create        |Date        |2012-03-15T19:00:00.000+10:00        |Timestamp when this item was created.    |
@@ -69,7 +69,7 @@ Operations with items: tasks, events, projects, notes, files.
 |alert | boolean | true | optional: display notification in desktop/browser version of application |
 |email | boolean | true | optional: send email |
 |push | boolean | true |optional: send push notification to mobile device |
-        
+
 
 
 To Create/Update/Delete reminders:
@@ -138,7 +138,61 @@ This method will return array of all items: tasks, events, files including proje
 It returns X-Cursor HTTP header. Cursor is a unix timestamp (in milliseconds) of server response. Example: 1478802464. It equals to timestamp of latest modified returned item.
 
 ```javascript
-[{"id":3361634,"user_id":184743,"title":"event 5724 1","completed":false,"color":0,"color_value":"#2AAEF5","category":2,"message":null,"parent":0,"recurring":0,"recurring_interval":1,"recurring_end_date":"2017-08-26T15:56:46.820+04:00","time_last_update":"2016-08-26T18:04:04.340+04:00","time_create":"2016-08-26T18:04:04.340+04:00","start_date":"2016-08-27T00:00:00.000+04:00","end_date":null,"due_date":null,"is_all_day":true,"shared":true,"reminder_enabled":null,"reminder_time":null,"reminder_time_type":null,"starred":false,"time_track":false,"time_est":0,"time_spent":0,"priority":21720,"last_comment_id":null,"last_comment":null,"last_comment_user_id":null,"last_comment_create_datetime":null,"guid":"9769a9f9-726c-4ec8-a920-be16193c26a6","parentGuid":null,"assignee":0,"tags":null,"version":1,"instances":null,"participants":null,"publish_url":null,"location":null,"alerts":null,"unread":null,"short_name":null,"issue_id":"164","permission":100,"permissions":[{"level":100,"principal":"184743"}],"previews":null,"last_transition_time":null,"last_transition_user":null}
+[{
+    "id": 3361634,
+    "user_id": 184743,
+    "title": "event 5724 1",
+    "completed": false,
+    "color": 0,
+    "color_value": "#2AAEF5",
+    "category": 2,
+    "message": null,
+    "parent": 0,
+    "recurring": 0,
+    "recurring_interval": 1,
+    "recurring_end_date": "2017-08-26T15:56:46.820+04:00",
+    "time_last_update": "2016-08-26T18:04:04.340+04:00",
+    "time_create": "2016-08-26T18:04:04.340+04:00",
+    "start_date": "2016-08-27T00:00:00.000+04:00",
+    "end_date": null,
+    "due_date": null,
+    "is_all_day": true,
+    "shared": true,
+    "reminder_enabled": null,
+    "reminder_time": null,
+    "reminder_time_type": null,
+    "starred": false,
+    "time_track": false,
+    "time_est": 0,
+    "time_spent": 0,
+    "priority": 21720,
+    "last_comment_id": null,
+    "last_comment": null,
+    "last_comment_user_id": null,
+    "last_comment_create_datetime": null,
+    "guid": "9769a9f9-726c-4ec8-a920-be16193c26a6",
+    "parentGuid": null,
+    "assignee": 0,
+    "tags": null,
+    "version": 1,
+    "instances": null,
+    "participants": null,
+    "publish_url": null,
+    "location": null,
+    "alerts": null,
+    "unread": null,
+    "short_name": null,
+    "issue_id": "164",
+    "permission": 100,
+    "permissions": [{
+      "level": 100,
+      "principal": "184743"
+    }],
+    "previews": null,
+    "last_transition_time": null,
+    "last_transition_user": null
+  }
+
 ```
 
 ### 1.2 Get delta update of items
@@ -157,13 +211,83 @@ Returns list of items that were changed or added since specified delta. Delta is
 It returns X-Cursor HTTP header. Cursor is a unix timestamp (in milliseconds) of server response. Example: 1478802464. It equals to timestamp of latest modified returned item.
 
 ```javascript
-[{"id":3361634,"changed":false},{"id":3362490,"changed":false},{"id":3362767,"changed":false},{"id":3362336,"changed":false},{"id":3362771,"user_id":184743,"title":"delta api","completed":false,"color":0,"color_value":"#2AAEF5","category":1,"parent":0,"recurring":0,"recurring_interval":1,"recurring_end_date":"2017-11-14T12:25:29.964+04:00","time_last_update":"2016-11-14T13:36:57.539+04:00","time_create":"2016-11-14T13:36:19.429+04:00","shared":true,"starred":true,"time_track":false,"time_est":0,"time_spent":0,"priority":21760,"guid":"2141ab89-48ee-47b0-878e-c9ad304397b4","assignee":0,"version":2,"changed":true,"issue_id":"632","permission":100,"permissions":[{"level":60,"principal":"184769"},{"level":60,"principal":"184775"},{"level":100,"principal":"184743"}]}]
+[{
+  "id": 3361634,
+  "changed": false
+}, {
+  "id": 3362490,
+  "changed": false
+}, {
+  "id": 3362767,
+  "changed": false
+}, {
+  "id": 3362336,
+  "changed": false
+}, {
+  "id": 3362771,
+  "user_id": 184743,
+  "title": "delta api",
+  "completed": false,
+  "color": 0,
+  "color_value": "#2AAEF5",
+  "category": 1,
+  "parent": 0,
+  "recurring": 0,
+  "recurring_interval": 1,
+  "recurring_end_date": "2017-11-14T12:25:29.964+04:00",
+  "time_last_update": "2016-11-14T13:36:57.539+04:00",
+  "time_create": "2016-11-14T13:36:19.429+04:00",
+  "shared": true,
+  "starred": true,
+  "time_track": false,
+  "time_est": 0,
+  "time_spent": 0,
+  "priority": 21760,
+  "guid": "2141ab89-48ee-47b0-878e-c9ad304397b4",
+  "assignee": 0,
+  "version": 2,
+  "changed": true,
+  "issue_id": "632",
+  "permission": 100,
+  "permissions": [{
+    "level": 60,
+    "principal": "184769"
+  }, {
+    "level": 60,
+    "principal": "184775"
+  }, {
+    "level": 100,
+    "principal": "184743"
+  }]
+}]
+
 ```
 
 
 ## 2. Create Item
 
 * `POST    /item` will create new item
+
+```
+Example Post data:
+
+title: Project title
+message: Desription
+category: 0
+newProject: true
+priority: 21010
+user_id: 190150
+color_value: #fc2f6a
+short_name: PROJ
+permissions: [{"principal":190150,"level":100}]
+start_date: 2018-05-05T23:59:59.999+02:00
+due_date: 2018-05-12T23:59:59.999+02:00
+cascadeAcl: 1
+permission: 100
+doAdd: true
+isSubItem: false
+manytasks: false
+```
 
 ### 2.1 Upload file
 
