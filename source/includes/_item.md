@@ -268,6 +268,20 @@ It returns X-Cursor HTTP header. Cursor is a unix timestamp (in milliseconds) of
 
 * `POST    /item` will create new item
 
+### Mandatory parameters:
+
+Param | Type | Description
+------------ | ------------- | ------------
+<code>guid</code>| uuid | Unique identifier
+<code>title</code>| string | maximum 255 characters
+
+### Optional parameters:
+
+Param | Type | Description
+------------ | ------------- | ------------
+<code>parentGuid</code>| uuid | Unique identifier of parent item.
+
+
 ```
 Example Post data:
 
@@ -314,6 +328,20 @@ Field | Type | Description
 
 * `PUT    /item` will update (modify) item
 
+### Mandatory parameters:
+
+Param | Type | Description
+------------ | ------------- | ------------
+<code>guid</code>| uuid | Unique identifier
+<code>title</code>| string | maximum 255 characters
+
+### Optional parameters:
+
+Param | Type | Description
+------------ | ------------- | ------------
+<code>parentGuid</code>| uuid | Unique identifier of parent item.
+
+
 ### Response codes for Create and Update
 
 HTTP code | API Error code | Description
@@ -326,14 +354,16 @@ HTTP code | API Error code | Description
 400 | 77 | Permission {principal X} downgrade to {permission X} is not allowed because parent has {permission Y} for this principal.
 400 | 78 | Cannot remove {assignee/participant} {user name} permission.
 400 | 80 | Short name already used.
+400 |	104 | One of the parameters is mandatory
+
 
 
 ## 4. Delete
 
-* `DELETE    /item/{id}` will delete item
+* `DELETE    /item/{guid}` will delete item
 
 Parameters:
-* {id}: unique id of item.
+* {guid}: unique identifier of item.
 
 User performing delete request must have sufficient rights to delete this object
 

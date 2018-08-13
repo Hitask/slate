@@ -16,7 +16,7 @@ The  API uses the following HTTP error codes:
 
 Error Code | Meaning
 ---------- | -------
-400 | Bad Request -- 
+400 | Bad Request --
 401 | Unauthorized -- Your API key is wrong or unauthorized
 403 | Forbidden -- The requested is forbidden
 404 | Not Found -- The specified item could not be foun
@@ -37,8 +37,8 @@ INVALID_DATA | 6 | "%s is not valid %s"
 SESSION_NOT_FOUND | 7 | "Session not found, please authenticate first"
 INVALID_API_KEY | 8 | "Invalid API Key"
 INVALID_JSON_VERSION | 9 | "API version must be %s or higher"
-STALE_OBJECT | 10 | "You are trying to update old object, which was cnaged on %s" 
-BAD_TARGET_USER | 11 | "Error sending message to user with id=%s" 
+STALE_OBJECT | 10 | "You are trying to update old object, which was cnaged on %s"
+BAD_TARGET_USER | 11 | "Error sending message to user with id=%s"
 LICENSE_OVERUSE | 12 | "You have no enough licenses to add new user"
 FILE_NOT_READY | 13 | "File is not ready"
 CONTACT_SELF_ADD | 14 | "You can't add yourself to the contact list"
@@ -48,7 +48,7 @@ OPERATION_NOT_ALLOWED | 17 | "%s operation is not allowed"
 NO_EMAIL | 18 | "No email provided for user"
 EMAIL_NOT_VALIDATED | 19 | "Email is not confirmed: please confirm your email address"
 LIMIT_EXCEED | 20 | "%s limit exceeded"
-LOGIN_ID_TAKEN | 21 | "Login id is already taken"	
+LOGIN_ID_TAKEN | 21 | "Login id is already taken"
 EMAIL_ALREADY_REGISTERED | 22 | "Email is already registered"
 CLIENT_UPGRADE_REQUIRED | 23 | "Client upgrade required"
 PARTICIPANTS_ADDING_ERROR | 24 | "User %s couldn't be added as participant"
@@ -112,3 +112,5 @@ ENDPOINT_DEPRECATED | 86 | "Current endpoint deprecated since %s."
 SCORE_LIMIT_REACHED | 87 | "\"%s\" daily limit reached."
 INVALID_PICTURE_MINIMUM_EDGE_LENGTH | 88 | "Minimum length for each edge of the picture is %spx"
 INTERNAL_ERROR | 100 | "Internal error"
+NOT_VALID_PREFERENCES | 102 | "Not valid preferences"
+ONE_OF_IS_MANDATORY | 104 | One of the parameters %s is mandatory
