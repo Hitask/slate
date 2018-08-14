@@ -1517,6 +1517,39 @@ It returns X-Cursor HTTP header. Cursor is a unix timestamp (in milliseconds) of
 <ul>
 <li><code>POST    /item</code> will create new item</li>
 </ul>
+<h3 id='mandatory-parameters'>Mandatory parameters:</h3>
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>guid</code></td>
+<td>uuid</td>
+<td>Unique identifier</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>string</td>
+<td>maximum 255 characters</td>
+</tr>
+</tbody></table>
+<h3 id='optional-parameters'>Optional parameters:</h3>
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>parentGuid</code></td>
+<td>uuid</td>
+<td>Unique identifier of parent item.</td>
+</tr>
+</tbody></table>
 <pre class="highlight plaintext"><code>Example Post data:
 
 title: Project title
@@ -1591,6 +1624,39 @@ manytasks: false
 <ul>
 <li><code>PUT    /item</code> will update (modify) item</li>
 </ul>
+<h3 id='mandatory-parameters-2'>Mandatory parameters:</h3>
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>guid</code></td>
+<td>uuid</td>
+<td>Unique identifier</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>string</td>
+<td>maximum 255 characters</td>
+</tr>
+</tbody></table>
+<h3 id='optional-parameters-2'>Optional parameters:</h3>
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>parentGuid</code></td>
+<td>uuid</td>
+<td>Unique identifier of parent item.</td>
+</tr>
+</tbody></table>
 <h3 id='response-codes-for-create-and-update'>Response codes for Create and Update</h3>
 <table><thead>
 <tr>
@@ -1639,14 +1705,19 @@ manytasks: false
 <td>80</td>
 <td>Short name already used.</td>
 </tr>
+<tr>
+<td>400</td>
+<td>104</td>
+<td>One of the parameters is mandatory</td>
+</tr>
 </tbody></table>
 <h2 id='4-delete'>4. Delete</h2>
 <ul>
-<li><code>DELETE    /item/{id}</code> will delete item</li>
+<li><code>DELETE    /item/{guid}</code> will delete item</li>
 </ul>
 
 <p>Parameters:
-* {id}: unique id of item.</p>
+* {guid}: unique identifier of item.</p>
 
 <p>User performing delete request must have sufficient rights to delete this object</p>
 
@@ -2751,6 +2822,16 @@ SELF means this is the current user.
 <td>INTERNAL_ERROR</td>
 <td>100</td>
 <td>&quot;Internal error&quot;</td>
+</tr>
+<tr>
+<td>NOT_VALID_PREFERENCES</td>
+<td>102</td>
+<td>&quot;Not valid preferences&quot;</td>
+</tr>
+<tr>
+<td>ONE_OF_IS_MANDATORY</td>
+<td>104</td>
+<td>One of the parameters %s is mandatory</td>
 </tr>
 </tbody></table>
 
