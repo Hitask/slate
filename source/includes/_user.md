@@ -183,9 +183,10 @@ Input parameters:
 
 ## Get User Preferences
 
-* `GET /user/preferences`
+* `GET /v6/user/preferences`  Returns user preferences in old format(Json as string)
+* `GET /user/preferences`     Returns user preferences in new format(Json as object)
 
-> Example response:
+> Example response (old format):
 
 ```javascript
 {
@@ -255,6 +256,31 @@ Input parameters:
     "default_shared": "false",
     "item.action.combobutton.last-used": "DELETE",
     "notify_app_item_modify": "true",
+}
+```
+
+> Example response (new format changes):
+
+```javascript
+{
+    "default_sharing_permission_auto": [
+      {
+        "principal": 16686710,
+        "level": 100
+      }
+    ],
+    "default_new_item_sharing_permission": [
+      {
+        "principal": 18556710,
+        "level": 100
+      }
+    ],
+    "default_sharing_permission_last": [
+      {
+        "level": 100,
+        "principal": "18556710"
+      }
+    ]
 }
 ```
 
