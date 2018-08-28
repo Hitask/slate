@@ -671,11 +671,12 @@ You must provide <code>ApiKey</code> with the request.
 </ul>
 <h2 id='get-user-preferences'>Get User Preferences</h2>
 <ul>
-<li><code>GET /user/preferences</code></li>
+<li><code>GET /v6/user/preferences</code>  Returns user preferences in old format(Json as string)</li>
+<li><code>GET /user/preferences</code>     Returns user preferences in new format(Json as object)</li>
 </ul>
 
 <blockquote>
-<p>Example response:</p>
+<p>Example response (old format):</p>
 </blockquote>
 <pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
     <span class="s2">"notify_app_item_deleted"</span><span class="p">:</span> <span class="s2">"true"</span><span class="p">,</span>
@@ -744,6 +745,30 @@ You must provide <code>ApiKey</code> with the request.
     <span class="s2">"default_shared"</span><span class="p">:</span> <span class="s2">"false"</span><span class="p">,</span>
     <span class="s2">"item.action.combobutton.last-used"</span><span class="p">:</span> <span class="s2">"DELETE"</span><span class="p">,</span>
     <span class="s2">"notify_app_item_modify"</span><span class="p">:</span> <span class="s2">"true"</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Example response (new format changes):</p>
+</blockquote>
+<pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="s2">"default_sharing_permission_auto"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"principal"</span><span class="p">:</span> <span class="mi">16686710</span><span class="p">,</span>
+        <span class="s2">"level"</span><span class="p">:</span> <span class="mi">100</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"default_new_item_sharing_permission"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"principal"</span><span class="p">:</span> <span class="mi">18556710</span><span class="p">,</span>
+        <span class="s2">"level"</span><span class="p">:</span> <span class="mi">100</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"default_sharing_permission_last"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"level"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="s2">"principal"</span><span class="p">:</span> <span class="s2">"18556710"</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </code></pre><h2 id='set-user-preferences'>Set User Preferences</h2>
 <ul>
