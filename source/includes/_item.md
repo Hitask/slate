@@ -225,6 +225,7 @@ It returns X-Cursor HTTP header. Cursor is a unix timestamp (in milliseconds) of
   "changed": false
 }, {
   "id": 3362771,
+  "guid": "123abc",
   "user_id": 184743,
   "title": "delta api",
   "completed": false,
@@ -317,6 +318,7 @@ Param | Type | Description
 ### Optional params:
 Param | Type | Description
 ------------ | ------------- | ------------
+<code>guid</code>| UUID | Item identifier.
 <code>parent_id</code>| number | Parent item identifier.
 
 ### Response fields:
