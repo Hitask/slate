@@ -38,6 +38,7 @@ Operations with items: tasks, events, projects, notes, files.
 |location        |object        |```{"longitude":123.1234567,"latitude":-4.0987654321,"address":"qwe"}```      |Map that contains long/lat coordinates and address    |
 | unread | number or null | 0 | Item is "unread" for this user. It was created or modified by someone else |
 | permissions | JSON array | See "Permissions" below |
+| contact | String|[ \"vcard\", [ [ \"version\", { }, \"text\", \"4.0\" ], [ \"prodid\", { }, \"text\", \"-\\\/\\\/Sabre\\\/\\\/Sabre VObject 3.1.3\\\/\\\/EN\" ], [ \"n\", { }, \"text\", [ \"Pot\", \"Evert\", \"\", \"\", \"\" ] ],  [\"org\", { \"type\": \"work\" }, \"text\", \"Viagenie\"], [ \"email\", { \"type\": [ \"INTERNET\", \"HOME\" ] }, \"text\", \"evert@rooftopsolutions.nl\" ], [ \"email\", { \"type\": [ \"INTERNET\", \"WORK\" ] }, \"text\", \"evert@fruux.com\" ], [ \"tel\", { \"type\": [ \"CELL\", \"VOICE\" ] }, \"text\", \"+1 647 471 2661\" ], [ \"adr\", { \"type\": \"HOME\" }, \"text\", [ \"\", \"\", \"24 Settles Street\", \"London\", \"\", \"E1 1JP\", \"United Kingdom\" ] ], [ \"note\", { }, \"text\", \"Foo\" ], [ \"url\", { \"pref\": \"1\", \"group\": \"ITEM2\" }, \"uri\", \"http:\\\/\\\/evertpot.com\\\/\" ], [ \"bday\", { }, \"date-and-or-time\", \"1985-04-07\" ], [ \"x-jabber\", { \"type\": \"HOME\", \"pref\": \"1\" }, \"unknown\", \"evertpot@gmail.com\" ], [ \"uid\", { }, \"text\", \"35269e7016a018e3\" ] ]] | Contact in jCard format |
 
 ### Alerts structure
 
@@ -130,6 +131,13 @@ Permission is defined by a level integer value.
 
 Contact item type has contact field that contains Contact details in jCard format. Fields compatible ith VCARD encoded with JSON.
 
+```javascript
+{
+	"title": "201911071638",
+	"category": 1,
+	"contact": "[ \"vcard\", [ [ \"version\", { }, \"text\", \"4.0\" ], [ \"prodid\", { }, \"text\", \"-\\\/\\\/Sabre\\\/\\\/Sabre VObject 3.1.3\\\/\\\/EN\" ], [ \"n\", { }, \"text\", [ \"Pot\", \"Evert\", \"\", \"\", \"\" ] ],  [\"org\", { \"type\": \"work\" }, \"text\", \"Viagenie\"], [ \"email\", { \"type\": [ \"INTERNET\", \"HOME\" ] }, \"text\", \"evert@rooftopsolutions.nl\" ], [ \"email\", { \"type\": [ \"INTERNET\", \"WORK\" ] }, \"text\", \"evert@fruux.com\" ], [ \"tel\", { \"type\": [ \"CELL\", \"VOICE\" ] }, \"text\", \"+1 647 471 2661\" ], [ \"adr\", { \"type\": \"HOME\" }, \"text\", [ \"\", \"\", \"24 Settles Street\", \"London\", \"\", \"E1 1JP\", \"United Kingdom\" ] ], [ \"note\", { }, \"text\", \"Foo\" ], [ \"url\", { \"pref\": \"1\", \"group\": \"ITEM2\" }, \"uri\", \"http:\\\/\\\/evertpot.com\\\/\" ], [ \"bday\", { }, \"date-and-or-time\", \"1985-04-07\" ], [ \"x-jabber\", { \"type\": \"HOME\", \"pref\": \"1\" }, \"unknown\", \"evertpot@gmail.com\" ], [ \"uid\", { }, \"text\", \"35269e7016a018e3\" ] ]]"
+}
+```
 
 ## 1. Get array of items
 
